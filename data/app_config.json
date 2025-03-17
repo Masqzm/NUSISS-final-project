@@ -1,0 +1,57 @@
+{
+	"fieldmask": [
+		"places.displayName",
+		"places.formattedAddress",
+		"places.googleMapsUri",
+		"places.photos",
+		"places.types",
+		"places.regularOpeningHours",
+		"places.priceRange",
+		"places.rating",
+		"places.userRatingCount",
+		"places.websiteUri",
+		"places.dineIn",
+		"places.reviews",
+		"places.editorialSummary"
+	],
+	"locationRestriction": {
+		"rectangle": {
+			"low": {
+				"latitude": 1.1300,
+				"longitude": 103.6000
+			},
+			"high": {
+				"latitude": 1.4600,
+				"longitude": 104.1000
+			}
+		}
+	},
+	"jioTopics": [
+		"Anything",
+		"Anime",
+		"Art & Design",
+		"Books",
+		"Business",
+		"Cars & Motorcycles",
+		"Cooking & Baking",
+		"Education",
+		"Dating",
+		"Fashion",
+		"Finance",
+		"Fitness & Wellness",
+		"Food",
+		"Games",
+		"Languages",
+		"Movies",
+		"Music",
+		"Parenting",
+		"Pets & Animals",
+		"Photography",
+		"Politics",
+		"Religion",
+		"Science & Technology",
+		"Sports",
+		"Travel",
+		"TV shows"
+	]
+}
