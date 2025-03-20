@@ -1,0 +1,18 @@
+<header>
+    <a tuiLink [routerLink]="['/']" [style.color]="'white'">
+        <div class="logo">
+            <!-- https://taiga-ui.dev/components/icon/API -->
+            <tui-icon
+                icon="@tui.soup"
+                [style.color]="'white'"
+            />
+            <span>JioMakan</span>
+        </div>
+    </a>
+    <nav>
+        <button tuiButton [routerLink]="['/about']" appearance="flat" [style.color]="'white'">About</button>
+        <button tuiButton [routerLink]="['/allRsvp']" appearance="flat" [style.color]="'white'">All Jios</button>
+        <button tuiButton [routerLink]="['/login']" appearance="flat-grayscale">Login</button>
+        <button tuiButton [routerLink]="['/register']" appearance="primary-grayscale">Register</button>
+    </nav>
+</header>

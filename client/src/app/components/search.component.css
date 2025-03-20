@@ -1,0 +1,16 @@
+fieldset {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input {
+    margin: 1rem;
+}
+tui-textfield {
+    width: 25rem;
+}
+tui-error {
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
+}

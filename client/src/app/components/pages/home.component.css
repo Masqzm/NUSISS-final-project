@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+
+    padding-top: 10vh;  /* TODO: adjust to center? */
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
