@@ -18,3 +18,10 @@ section {
     align-items: center;
     gap: 5px;
 }
+
+.interactive-link tui-icon {
+    transition: transform 0.1s ease-in-out;
+}
+.interactive-link:hover > tui-icon {
+    transform: translate(0.25rem);
+}

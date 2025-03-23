@@ -23,12 +23,12 @@ export class ListRestaurantComponent implements OnInit, OnDestroy {
   testData: Restaurant[] = []
 
   ngOnInit(): void {
-    this.subParams = this.activatedRoute.params.subscribe(
+    this.subParams = this.activatedRoute.queryParams.subscribe(
       params => {
         this.query = this.activatedRoute.snapshot.queryParams['q']
         console.info('>>> q: ', this.query)
 
-        this.searchSvc.search(this.query)
+        this.results$ = this.searchSvc.search(this.query)
       }
     )
 

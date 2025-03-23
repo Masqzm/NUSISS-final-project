@@ -16,9 +16,6 @@ export class SearchComponent implements OnInit {
 
   protected form!: FormGroup
 
-  @Input({ required: true })
-  inlineSearchBtn!: boolean
-
   ngOnInit(): void {
       this.form = this.createForm()
   }

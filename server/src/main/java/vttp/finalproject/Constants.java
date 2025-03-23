@@ -1,4 +1,4 @@
-package vttp.finalproject.config;
+package vttp.finalproject;
 
 import java.util.List;
 

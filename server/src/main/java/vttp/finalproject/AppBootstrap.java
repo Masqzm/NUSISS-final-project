@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import jakarta.json.Json;
 import jakarta.json.JsonReader;
-import vttp.finalproject.config.Constants;
 
 @Component
 public class AppBootstrap implements CommandLineRunner {
@@ -23,7 +22,7 @@ public class AppBootstrap implements CommandLineRunner {
             StringBuilder sb = new StringBuilder();
 
             // Load file from classpath
-            try(InputStreamReader is = new InputStreamReader(new ClassPathResource("data/fieldmask.txt").getInputStream());
+            try(InputStreamReader is = new InputStreamReader(new ClassPathResource("data/places_fieldmask.txt").getInputStream());
                 BufferedReader br = new BufferedReader(is)) {
 
                 while ((line = br.readLine()) != null) 
@@ -34,7 +33,7 @@ public class AppBootstrap implements CommandLineRunner {
 
 
             // Load file from classpath
-            InputStream inputStream = new ClassPathResource("data/locationRestriction.json").getInputStream();
+            InputStream inputStream = new ClassPathResource("data/places_locationRestriction.json").getInputStream();
 
             // Read and store JSON object into Constants
             JsonReader reader = Json.createReader(inputStream);
@@ -42,7 +41,7 @@ public class AppBootstrap implements CommandLineRunner {
 
 
             // Load file from classpath
-            try(InputStreamReader is = new InputStreamReader(new ClassPathResource("data/topics.txt").getInputStream());
+            try(InputStreamReader is = new InputStreamReader(new ClassPathResource("data/rsvp_topics.txt").getInputStream());
                 BufferedReader br = new BufferedReader(is)) {
                 // Reset SB
                 sb.setLength(0);

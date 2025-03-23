@@ -2,7 +2,7 @@
 <!-- https://taiga-ui.dev/components/input -->
 <search tuiSearch>
     <form [formGroup]="form">
-        <div class="search-field" [ngClass]="{'inline': inlineSearchBtn}">
+        <div class="search-field">
             <div class="search-input">
                 <!-- ngClass - add class on condition -->
                 <tui-textfield iconStart="@tui.search" [ngClass]="{'shake': form.invalid && form.touched}">

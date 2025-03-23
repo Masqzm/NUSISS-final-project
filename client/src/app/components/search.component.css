@@ -1,8 +1,8 @@
 .search-field {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    gap: 20px;
 }
 tui-textfield {
     width: 25rem;
@@ -12,12 +12,6 @@ tui-error {
     text-align: center;
     margin: 10px;
     margin-bottom: 1.2rem;
-}
-
-.inline {
-    flex-direction: row !important;
-    align-items: start;
-    gap: 20px;
 }
 
 /* animation on error */
