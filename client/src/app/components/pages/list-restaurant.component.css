@@ -1,0 +1,20 @@
+.results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.rest-img {
+    max-height: 250px;
+    width: auto;
+}
+
+section {
+    text-align: start;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

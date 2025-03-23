@@ -31,14 +31,17 @@ import { RsvpFormComponent } from './components/rsvp/rsvp-form.component';
 
 import { SearchComponent } from './components/search.component';
 import { RestaurantInfoComponent } from './components/restaurant-info.component';
+import { ListRestaurantComponent } from './components/pages/list-restaurant.component';
+import { SearchService } from './search.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'search', component: SearchComponent },
+  //{ path: 'search', component: SearchComponent },
+  { path: 'search', component: ListRestaurantComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'restaurant/:restid', component: RestaurantComponent },
+  { path: 'restaurant/:id', component: RestaurantComponent },
   { path: 'rsvp/:rsvpId', component: ViewRsvpComponent },
   { path: 'myRsvp', component: ListRsvpSelfComponent },
   { path: 'allRsvp', component: ListRsvpAllComponent },
@@ -61,7 +64,8 @@ const appRoutes: Routes = [
     ListRsvpSelfComponent,
     ListRsvpAllComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ListRestaurantComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +76,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { useHash: true })      
 ],
   providers: [ 
+    SearchService,
     provideHttpClient(),
     NG_EVENT_PLUGINS
 ],

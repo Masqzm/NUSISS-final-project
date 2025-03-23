@@ -2,15 +2,17 @@
 <!-- https://taiga-ui.dev/components/input -->
 <search tuiSearch>
     <form [formGroup]="form">
-        <fieldset>
+        <div class="search-field" [ngClass]="{'inline': inlineSearchBtn}">
             <div class="search-input">
-                <tui-textfield iconStart="@tui.search">
-                    <input tuiTextfield formControlName="restaurant" placeholder="Search restaurant"/>
+                <!-- ngClass - add class on condition -->
+                <tui-textfield iconStart="@tui.search" [ngClass]="{'shake': form.invalid && form.touched}">
+                    <input tuiTextfield formControlName="keyword" placeholder="Search restaurant"/>
                 </tui-textfield>
                 <!-- Ref: https://taiga-ui.dev/pipes/field-error#custom-messages -->
-                <tui-error formControlName="restaurant" [error]="[] | tuiFieldError | async"/>
+                <tui-error formControlName="keyword" [error]="[] | tuiFieldError | async"/>
             </div>
-            <button tuiButton  type="button" (click)="search()">Search</button>
-        </fieldset>
+
+            <div><button tuiButton  type="button" (click)="search()">Search</button></div>
+        </div>
     </form>
 </search>

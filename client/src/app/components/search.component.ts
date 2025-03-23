@@ -1,5 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
 
@@ -11,15 +12,19 @@ import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
 })
 export class SearchComponent implements OnInit {
   private fb = inject(FormBuilder)
+  private router = inject(Router)
 
   protected form!: FormGroup
+
+  @Input({ required: true })
+  inlineSearchBtn!: boolean
 
   ngOnInit(): void {
       this.form = this.createForm()
   }
   private createForm(): FormGroup {
     return this.fb.group({
-      restaurant: this.fb.control<string>('', [Validators.required])
+      keyword: this.fb.control<string>('', [Validators.required])
     })
   }
 
@@ -29,6 +34,8 @@ export class SearchComponent implements OnInit {
     if(this.form.invalid)
       return
 
-    console.info('>>> search: ', this.form.value['restaurant'])
+    const q = this.form.value['keyword']
+
+    this.router.navigate(['/search'], { queryParams: { q } })
   }
 }

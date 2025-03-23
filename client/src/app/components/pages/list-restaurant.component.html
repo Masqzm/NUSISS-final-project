@@ -1,0 +1,52 @@
+<app-search [inlineSearchBtn]="true"></app-search>
+<h1>Search results for "{{query}}":</h1>
+<br>
+<div class="results">
+@for (rest of testData; track $index) {     <!--i is unique value of testData-->
+    <button tuiCardLarge tuiSurface="floating" type="button" [routerLink]="['/restaurant/', rest.id]">
+        <img class="rest-img"
+            src="assets/placeholders/restaurant.svg"
+            alt="restaurant image"
+        />
+        <header tuiHeader>
+            <h2 tuiTitle>
+                {{rest.name}}
+                <span tuiSubtitle>{{rest.address}}</span>
+            </h2>
+        </header>
+        <section>
+            <!-- 1.0-0 = {minIntDigits}.{minDecDigits}-{maxDecDigits} -->
+            <tui-chip>Cost: {{rest.startPrice | currency: '$': 'symbol': '1.0-0'}}-{{rest.endPrice | number: '1.0-0'}}</tui-chip>
+            
+            <p class="rating">
+                <tui-icon 
+                    icon="@tui.star" background="@tui.star-filled" 
+                    [style.color]="'var(--tui-background-accent-2)'" [style.background]="'var(--tui-background-accent-2)'"
+                >
+                </tui-icon> {{rest.rating}}/5.0 (123)
+            </p>
+
+            <!-- @for (dailyOH of rest.openingHours; track $index) {
+                <p>{{dailyOH}}</p>
+            }
+        
+            <a [href]="rest.googleMapsURI"><tui-icon icon="@tui.map-pinned" [style.color]="'red'"/></a>
+            @if (rest.websiteURI) {
+                <a [href]="rest.websiteURI"><tui-icon icon="@tui.link" [style.color]="'blue'"/></a>
+            } -->
+        </section>
+    </button>
+}
+</div>
+
+<!-- @if (results$ | async; as restaurants) {
+    @for (rest of restaurants; track restaurant.id)
+    {
+        
+    }
+    @empty {
+        <h2>No results for "<span>{{query}}</span>"</h2>
+        <br>
+        <p>Try a different search term or view <a [routerLink]="['/allJios']">all jios here!</a></p>
+    }
+} -->

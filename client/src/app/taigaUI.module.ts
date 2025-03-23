@@ -2,21 +2,20 @@ import { NgModule } from "@angular/core";
 
 // Add modules as needed here
 import {
-    TuiIcon, 
-    TuiIconPipe, 
-    TuiLink,
-    TuiTitle,
-    TuiButton,
-    TuiAppearance,
-    TuiTextfield,
-    TuiError
+    TuiIcon, TuiIconPipe, TuiLink,
+    TuiTitle, TuiButton, TuiAppearance,    
+    TuiTextfield, TuiError, TuiSurface
 } from '@taiga-ui/core';
 
-import {TuiHeader, TuiSearch} from '@taiga-ui/layout';
+import {
+    TuiHeader, TuiSearch, TuiCardLarge, 
+    TuiCell
+} from '@taiga-ui/layout';
 
-import {TuiFieldErrorPipe, tuiValidationErrorsProvider} from '@taiga-ui/kit';
-
-import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
+import {
+    TuiFieldErrorPipe, tuiValidationErrorsProvider, TuiAvatar, 
+    TuiChip
+} from '@taiga-ui/kit';
 
 @NgModule({
     imports: [
@@ -31,7 +30,12 @@ import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
         ...TuiSearch,
         ...TuiTextfield,
         TuiError,
-        TuiFieldErrorPipe
+        TuiFieldErrorPipe,
+        TuiSurface, 
+        TuiCardLarge,
+        TuiCell,
+        TuiAvatar, 
+        TuiChip
     ],
     exports: [
         // Add modules as needed here
@@ -45,7 +49,12 @@ import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
         ...TuiSearch,
         ...TuiTextfield,
         TuiError,
-        TuiFieldErrorPipe
+        TuiFieldErrorPipe,
+        TuiSurface, 
+        TuiCardLarge,
+        TuiCell,
+        TuiAvatar, 
+        TuiChip
     ],
     providers: [
         // Ref: https://taiga-ui.dev/pipes/field-error#custom-messages
