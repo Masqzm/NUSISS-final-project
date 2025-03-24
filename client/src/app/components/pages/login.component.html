@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="container">
+    <form [formGroup]="form" tuiCardLarge tuiAppearance="floating" tuiForm="m">
+        <header tuiHeader>
+            <h2 tuiTitle class="header center">
+                <tui-icon class="logo" icon="@tui.soup" [style.color]="'black'"/>
+                <span class="title">JioMakan</span>
+                <span tuiSubtitle>Login</span>
+            </h2>
+        </header>
+        
+        <tui-textfield>
+            <label tuiLabel>Email</label>
+            <input tuiTextfield formControlName="email" placeholder="john@wick.com" type="email"/>
+        </tui-textfield>
+        <tui-error formControlName="email" [error]="[] | tuiFieldError | async"/>
+        
+        <tui-textfield>
+            <label tuiLabel>Password</label>
+            <input tuiTextfield formControlName="password" type="password"/>
+            <tui-icon tuiPassword />
+        </tui-textfield>
+        <tui-error formControlName="password" [error]="[] | tuiFieldError | async"/>
+
+        <button tuiButton class="login-btn" type="submit" (click)="login()">Login</button>
+
+        <span class="center">
+            Not a member?<a tuiLink class="register-text" [routerLink]="['/register']">Create New Account</a>
+        </span>
+
+        <footer class="center">
+            <div class="border"></div>
+                <span class="footer-text">Or continue with</span>
+            <div class="border"></div>
+        </footer>
+        <button tuiButton class="loginG-btn" type="submit" (click)="loginGoogle()">
+            <img src="assets/google.webp" alt="Google Logo">
+            Continue with Google
+        </button>
+    </form>
+</div>

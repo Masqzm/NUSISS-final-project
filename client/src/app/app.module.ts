@@ -32,7 +32,7 @@ import { RsvpFormComponent } from './components/rsvp/rsvp-form.component';
 import { SearchComponent } from './components/search.component';
 import { RestaurantInfoComponent } from './components/restaurant-info.component';
 import { ListRestaurantComponent } from './components/pages/list-restaurant.component';
-import { SearchService } from './search.service';
+import { SearchService } from './services/search.service';  
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },

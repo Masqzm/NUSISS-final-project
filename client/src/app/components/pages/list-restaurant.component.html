@@ -29,7 +29,7 @@
 }
 -->
 
-@if (results$ | async; as restaurants) {
+@if (results$ | async; as restaurants;) {
     <div class="results">
     @for (rest of restaurants; track rest.id)
     {

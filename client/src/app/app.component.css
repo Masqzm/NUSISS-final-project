@@ -9,8 +9,9 @@
     flex-grow: 1;   /* Takes up the remaining space */
 
     display: flex;
-    padding: 20px;
     justify-content: center;
+    padding: 40px;
+    margin: 0 50px;
 }
 
 /* .content {

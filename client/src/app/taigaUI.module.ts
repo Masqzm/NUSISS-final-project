@@ -9,57 +9,44 @@ import {
 
 import {
     TuiHeader, TuiSearch, TuiCardLarge, 
-    TuiCell
+    TuiCell, TuiForm
 } from '@taiga-ui/layout';
 
 import {
     TuiFieldErrorPipe, tuiValidationErrorsProvider, TuiAvatar, 
-    TuiChip
+    TuiChip, TuiPassword
 } from '@taiga-ui/kit';
+import { of } from "rxjs";
 
 @NgModule({
     imports: [
         // Add modules as needed here
-        TuiIcon,
-        TuiIconPipe,
-        TuiLink,
-        TuiTitle,
-        TuiHeader,
-        TuiButton,
-        TuiAppearance,
-        ...TuiSearch,
-        ...TuiTextfield,
-        TuiError,
-        TuiFieldErrorPipe,
-        TuiSurface, 
-        TuiCardLarge,
-        TuiCell,
-        TuiAvatar, 
-        TuiChip
+        TuiIcon, TuiIconPipe, TuiLink,
+        TuiTitle, TuiHeader, TuiButton,
+        TuiAppearance, ...TuiSearch, ...TuiTextfield,
+        TuiError, TuiFieldErrorPipe, TuiSurface, 
+        TuiCardLarge, TuiCell, TuiAvatar, 
+        TuiChip, TuiForm, TuiPassword
     ],
     exports: [
         // Add modules as needed here
-        TuiIcon,
-        TuiIconPipe,
-        TuiLink,
-        TuiTitle,
-        TuiHeader,
-        TuiButton,
-        TuiAppearance,
-        ...TuiSearch,
-        ...TuiTextfield,
-        TuiError,
-        TuiFieldErrorPipe,
-        TuiSurface, 
-        TuiCardLarge,
-        TuiCell,
-        TuiAvatar, 
-        TuiChip
+        TuiIcon, TuiIconPipe, TuiLink,
+        TuiTitle, TuiHeader, TuiButton,
+        TuiAppearance, ...TuiSearch, ...TuiTextfield,
+        TuiError, TuiFieldErrorPipe, TuiSurface, 
+        TuiCardLarge, TuiCell, TuiAvatar, 
+        TuiChip, TuiForm, TuiPassword
     ],
     providers: [
         // Ref: https://taiga-ui.dev/pipes/field-error#custom-messages
         tuiValidationErrorsProvider({
-            required: 'Enter this!'
+            required: 'Enter this!',
+            email: 'Please enter a valid email',
+            minlength: ({requiredLength}: {requiredLength: string}) =>
+                of(`Minimum characters — ${requiredLength}`),
+            maxlength: ({requiredLength}: {requiredLength: string}) =>
+                `Maximum characters — ${requiredLength}`,
+            pattern: 'Only alphanumeric characters and underscores allowed'
         })
     ]
 })

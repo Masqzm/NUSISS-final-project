@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Restaurant } from "./models";
+import { Restaurant } from "../models";
 
 @Injectable()
 export class SearchService {

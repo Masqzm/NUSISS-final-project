@@ -1,8 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { SearchService } from '../../search.service';
 import { Restaurant } from '../../models';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-list-restaurant',

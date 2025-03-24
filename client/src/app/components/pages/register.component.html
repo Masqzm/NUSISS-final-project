@@ -1,1 +1,42 @@
-<p>register works!</p>
+<div class="container">
+    <form [formGroup]="form" tuiCardLarge tuiAppearance="floating" tuiForm="m">
+        <header tuiHeader>
+            <h2 tuiTitle class="header center">
+                <tui-icon class="logo" icon="@tui.soup" [style.color]="'black'"/>
+                <span class="title">JioMakan</span>
+                <span tuiSubtitle>Register Account</span>
+            </h2>
+        </header>
+        
+        <tui-textfield>
+            <label tuiLabel>Email</label>
+            <input tuiTextfield formControlName="email" placeholder="john@wick.com" type="email"/>
+        </tui-textfield>
+        <tui-error formControlName="email" [error]="[] | tuiFieldError | async"/>
+        
+        <tui-textfield>
+            <label tuiLabel>Username</label>
+            <input tuiTextfield formControlName="username" placeholder="John Wick"/>
+        </tui-textfield>
+        <tui-error formControlName="username" [error]="[] | tuiFieldError | async"/>
+
+        <tui-textfield>
+            <label tuiLabel>Password</label>
+            <input tuiTextfield formControlName="password" type="password"/>
+            <tui-icon tuiPassword />
+        </tui-textfield>
+        <tui-error formControlName="password" [error]="[] | tuiFieldError | async"/>
+
+        <button tuiButton class="register-btn" type="submit" (click)="register()">Register</button>
+
+        <footer class="center">
+            <div class="border"></div>
+                <span class="footer-text">Or continue with</span>
+            <div class="border"></div>
+        </footer>
+        <button tuiButton class="registerG-btn" type="submit" (click)="registerGoogle()">
+            <img src="assets/google.webp" alt="Google Logo">
+            Continue with Google
+        </button>
+    </form>
+</div>

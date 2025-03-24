@@ -14,3 +14,21 @@ export interface Restaurant {
     openingHours: string[]
     rsvpIds: []
 }
+
+// User authentication
+export interface User {
+    id: string
+    email: string
+    token: string
+}
+
+export interface UserAuthForm {
+    email: string
+    username: string
+    password: string
+}
+
+// export interface UserLoginForm {
+//     email: string
+//     password: string
+// }

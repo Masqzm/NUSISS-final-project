@@ -1,0 +1,56 @@
+.container {
+    margin-top: 30px;
+    width: 500px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    padding: 20px;
+}
+
+.logo {
+    font-size: 4rem;
+}
+
+.title {
+    font-size: 1.5rem;
+}
+
+.border {
+    border: 1px solid var(--tui-text-tertiary);
+    opacity: 0.7;
+    flex-grow: 1;
+}
+
+.login-btn {
+    margin-top: 10px;
+}
+
+.login-btn, footer {
+    font-weight: 500;
+}
+
+.register-text {
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.footer-text {
+    font-weight: bold;
+    color: var(--tui-text-secondary);
+}
+
+.loginG-btn {
+    background-color: var(--tui-text-primary);
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.loginG-btn img {
+    max-width: 20px;
+}
