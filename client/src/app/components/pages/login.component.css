@@ -27,6 +27,24 @@
     flex-grow: 1;
 }
 
+.login-error {
+    margin-top: 18px;
+}
+.login-error tui-error {
+    font-weight: 500;
+}
+.shake {
+    animation: shake 0.5s ease-in-out;
+    animation-iteration-count: 1; 
+}
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
 .login-btn {
     margin-top: 10px;
 }

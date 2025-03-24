@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import vttp.finalproject.models.Restaurant;
-import vttp.finalproject.services.SearchRestService;
+import vttp.finalproject.services.SearchService;
 
 @RestController
 @RequestMapping("/api")
-public class SearchRestController {
+public class SearchController {
     @Autowired
-    private SearchRestService searchRestSvc;
+    private SearchService searchRestSvc;
 
     @GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> searchRestaurants(@RequestParam String q) {

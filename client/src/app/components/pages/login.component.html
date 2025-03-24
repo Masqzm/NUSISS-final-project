@@ -8,18 +8,20 @@
             </h2>
         </header>
         
-        <tui-textfield>
+        <tui-textfield [ngClass]="{'shake': authFailed}">
             <label tuiLabel>Email</label>
             <input tuiTextfield formControlName="email" placeholder="john@wick.com" type="email"/>
         </tui-textfield>
         <tui-error formControlName="email" [error]="[] | tuiFieldError | async"/>
         
-        <tui-textfield>
+        <tui-textfield [ngClass]="{'shake': authFailed}">
             <label tuiLabel>Password</label>
             <input tuiTextfield formControlName="password" type="password"/>
             <tui-icon tuiPassword />
         </tui-textfield>
         <tui-error formControlName="password" [error]="[] | tuiFieldError | async"/>
+
+        <div [ngClass]="{'login-error': authFailed}" class="center"><tui-error [error]="loginFail()"/></div>
 
         <button tuiButton class="login-btn" type="submit" (click)="login()">Login</button>
 

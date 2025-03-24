@@ -8,7 +8,7 @@
             </h2>
         </header>
         
-        <tui-textfield>
+        <tui-textfield [ngClass]="{'shake': authFailed}">
             <label tuiLabel>Email</label>
             <input tuiTextfield formControlName="email" placeholder="john@wick.com" type="email"/>
         </tui-textfield>
@@ -26,6 +26,8 @@
             <tui-icon tuiPassword />
         </tui-textfield>
         <tui-error formControlName="password" [error]="[] | tuiFieldError | async"/>
+
+        <div [ngClass]="{'reg-error': authFailed}" class="center"><tui-error [error]="regFail()"/></div>
 
         <button tuiButton class="register-btn" type="submit" (click)="register()">Register</button>
 

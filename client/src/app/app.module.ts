@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/pages/home.component';
 import { AboutComponent } from './components/pages/about.component';
 import { RestaurantComponent } from './components/pages/restaurant.component';
+import { ListRestaurantComponent } from './components/pages/list-restaurant.component';
 import { ViewRsvpComponent } from './components/pages/view-rsvp.component';
 import { ListRsvpAllComponent } from './components/pages/list-rsvp-all.component';
 import { ListRsvpSelfComponent } from './components/pages/list-rsvp-self.component';
@@ -29,10 +30,13 @@ import { FooterComponent } from './components/layout/footer.component';
 import { RsvpCardComponent } from './components/rsvp/rsvp-card.component';
 import { RsvpFormComponent } from './components/rsvp/rsvp-form.component';
 
+// components (generic components used here and there)
 import { SearchComponent } from './components/search.component';
 import { RestaurantInfoComponent } from './components/restaurant-info.component';
-import { ListRestaurantComponent } from './components/pages/list-restaurant.component';
+
 import { SearchService } from './services/search.service';  
+import { AuthService } from './services/auth.service';
+import { UserStore } from './user.store';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -77,6 +81,8 @@ const appRoutes: Routes = [
 ],
   providers: [ 
     SearchService,
+    AuthService,
+    UserStore,
     provideHttpClient(),
     NG_EVENT_PLUGINS
 ],

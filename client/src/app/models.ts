@@ -17,8 +17,9 @@ export interface Restaurant {
 
 // User authentication
 export interface User {
-    id: string
+    user_id: string             // might not need
     email: string
+    username: string
     token: string
 }
 
@@ -32,3 +33,14 @@ export interface UserAuthForm {
 //     email: string
 //     password: string
 // }
+
+// Rsvp (Jio)
+export interface Rsvp {
+    id: string
+    posterId: string
+    posterName: string
+    restaurantId: string
+    timestamp: number
+    topcis: string[]
+    attendeeIds: string[]
+}

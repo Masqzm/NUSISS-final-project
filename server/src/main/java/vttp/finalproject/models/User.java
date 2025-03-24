@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 
 public class User {
     @NotBlank(message = "Username cannot be empty")
-    @Size(min = 3, max = 16, message = "Username must be 3-16 characters long")
+    @Size(min = 5, max = 32, message = "Username must be 3-16 characters long")
     @Pattern(regexp="^[a-zA-Z0-9_]+$", message="Only alphanumeric characters and underscores are allowed")
     private String name;
 
@@ -27,16 +27,16 @@ public class User {
     @Email(message = "Please enter a vaild email")
     private String email;
 
-    private List<String> jioIDsList;    // to keep track of upcoming jios user is attending
-    //private List<Restaurant> favRestaurantsList;      // add-on feature
+    private List<String> rsvpIds;    // to keep track of upcoming jio events user is attending
+    //private List<Restaurant> favRestaurants;      // add-on feature
 
     public User() {}
-    public User(String name, String password, String email, List<String> jioIDsList) {
+    public User(String name, String password, String email, List<String> rsvpIds) {
         this.name = name;
         this.password = password;
         this.email = email;
 
-        this.jioIDsList = jioIDsList;
+        this.rsvpIds = rsvpIds;
     }
 
     public static User jsonToUser(String json) {
@@ -46,15 +46,15 @@ public class User {
         JsonReader reader = Json.createReader(new StringReader(json));
         JsonObject j = reader.readObject();
 
-        List<String> jioIDs = new ArrayList<>(); 
+        List<String> ids = new ArrayList<>(); 
 
-        for(int i = 0; i < j.getJsonArray("jioIDs").size(); i++) 
-            jioIDs.add(j.getJsonArray("jioIDs").getString(i));
+        for(int i = 0; i < j.getJsonArray("rsvpIds").size(); i++) 
+            ids.add(j.getJsonArray("rsvpIds").getString(i));
 
         User user = new User(j.getString("name"),
                         j.getString("password"),
                         j.getString("email"),
-                        jioIDs);
+                        ids);
 
         return user;
     }
@@ -62,9 +62,9 @@ public class User {
     public String toJson() {
         JsonArrayBuilder jArrBuilder = Json.createArrayBuilder();
 
-        // If jioIDsList is null, empty JSON array will be built (arr = [])
-        if(jioIDsList != null && !jioIDsList.isEmpty()) {
-            for(String jioID : jioIDsList) 
+        // If rsvpIds is null, empty JSON array will be built (arr = [])
+        if(rsvpIds != null && !rsvpIds.isEmpty()) {
+            for(String jioID : rsvpIds) 
                 jArrBuilder.add(jioID);
         }
 
@@ -100,10 +100,10 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    public List<String> getJioIDsList() {
-        return jioIDsList;
+    public List<String> getRsvpIds() {
+        return rsvpIds;
     }
-    public void setJioIDsList(List<String> jioIDsList) {
-        this.jioIDsList = jioIDsList;
+    public void setRsvpIds(List<String> rsvpIds) {
+        this.rsvpIds = rsvpIds;
     }
 }

@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { of } from "rxjs";
 
 // Add modules as needed here
 import {
@@ -16,7 +17,6 @@ import {
     TuiFieldErrorPipe, tuiValidationErrorsProvider, TuiAvatar, 
     TuiChip, TuiPassword
 } from '@taiga-ui/kit';
-import { of } from "rxjs";
 
 @NgModule({
     imports: [

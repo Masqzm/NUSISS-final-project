@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SearchRestService {
+public class SearchService {
     @Value("${google.api.key}") 
     private String googleAPIkey;
 

@@ -2,7 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
+import {tuiMarkControlAsTouchedAndValidate, TuiValidationError} from '@taiga-ui/cdk';
+import { UserAuthForm } from '../../models';
+import { AuthService } from '../../services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +16,14 @@ import {tuiMarkControlAsTouchedAndValidate} from '@taiga-ui/cdk';
 export class RegisterComponent implements OnInit {
   private fb = inject(FormBuilder)
   private router = inject(Router)
+  private authSvc = inject(AuthService)
 
   protected form!: FormGroup
+  
+  protected authFailed = false
+  protected authFailedTVE = new TuiValidationError('Email is already in use!')
+
+  constructor(private location: Location) {}
 
   ngOnInit(): void {
       this.form = this.createForm()
@@ -37,7 +46,32 @@ export class RegisterComponent implements OnInit {
 
     console.info('register: ', this.form.value)
 
-    //this.router.navigate(['/search'], { queryParams: { q } })
+    const authForm: UserAuthForm = {
+      email: this.form.value['email'],
+      username: this.form.value['username'],
+      password: this.form.value['password']
+    }
+
+    const regAuthResponse = this.authSvc.register(authForm)
+
+    if(regAuthResponse == 'success') {
+      // go back to prev page if there's history
+      if(window.history.length > 1)
+        this.location.back(); 
+      else
+        this.router.navigate(['/'])
+    } else {
+      this.authFailed = true
+      
+      if(regAuthResponse != 'invalid') {
+        this.authFailedTVE = new TuiValidationError('Server error. Please try again')
+        console.error('Registration Error: ', regAuthResponse)
+      }
+    }    
+  }
+
+  regFail(): TuiValidationError | null {
+    return this.authFailed ? this.authFailedTVE : null;
   }
 
   registerGoogle() {
