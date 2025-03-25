@@ -11,7 +11,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import vttp.finalproject.models.Restaurant;
 
-import static vttp.finalproject.Constants.*;
+import static vttp.finalproject.utils.Constants.*;
 
 import java.util.List;
 import java.util.Optional;

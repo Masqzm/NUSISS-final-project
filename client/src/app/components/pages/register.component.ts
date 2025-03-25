@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   protected form!: FormGroup
   
   protected authFailed = false
-  protected authFailedTVE = new TuiValidationError('Email is already in use!')
+  protected authFailedTVE!: TuiValidationError
 
   constructor(private location: Location) {}
 
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  register() {
+  async register() {
     tuiMarkControlAsTouchedAndValidate(this.form)
 
     if(this.form.invalid)
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
       password: this.form.value['password']
     }
 
-    const regAuthResponse = this.authSvc.register(authForm)
+    const regAuthResponse = await this.authSvc.register(authForm)
 
     if(regAuthResponse == 'success') {
       // go back to prev page if there's history
@@ -62,11 +62,11 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/'])
     } else {
       this.authFailed = true
-      
-      if(regAuthResponse != 'invalid') {
+      console.error('regAuthResponse: ', regAuthResponse)
+      if(regAuthResponse == 'invalid')
+        this.authFailedTVE = new TuiValidationError('Email is already in use!')
+      else 
         this.authFailedTVE = new TuiValidationError('Server error. Please try again')
-        console.error('Registration Error: ', regAuthResponse)
-      }
     }    
   }
 

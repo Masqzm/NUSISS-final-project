@@ -12,12 +12,15 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import vttp.finalproject.utils.Utils;
 
 public class User {
+    private String userId;
+
     @NotBlank(message = "Username cannot be empty")
     @Size(min = 5, max = 32, message = "Username must be 3-16 characters long")
     @Pattern(regexp="^[a-zA-Z0-9_]+$", message="Only alphanumeric characters and underscores are allowed")
-    private String name;
+    private String username;
 
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 6, message = "Password must be at least 6 characters long")
@@ -31,15 +34,15 @@ public class User {
     //private List<Restaurant> favRestaurants;      // add-on feature
 
     public User() {}
-    public User(String name, String password, String email, List<String> rsvpIds) {
-        this.name = name;
+    public User(String username, String password, String email, List<String> rsvpIds) {
+        this.username = username;
         this.password = password;
         this.email = email;
 
         this.rsvpIds = rsvpIds;
     }
 
-    public static User jsonToUser(String json) {
+    public static User jsonToUser(String json, boolean encryptPassword) {
         if (json == null)
             return null;
         
@@ -48,13 +51,17 @@ public class User {
 
         List<String> ids = new ArrayList<>(); 
 
-        for(int i = 0; i < j.getJsonArray("rsvpIds").size(); i++) 
-            ids.add(j.getJsonArray("rsvpIds").getString(i));
+        if(j.containsKey("rsvpIds"))
+            for(int i = 0; i < j.getJsonArray("rsvpIds").size(); i++) 
+                ids.add(j.getJsonArray("rsvpIds").getString(i));
 
-        User user = new User(j.getString("name"),
-                        j.getString("password"),
-                        j.getString("email"),
-                        ids);
+        // Encrypt password if its not already been encrypted
+        String hashedPassword = encryptPassword ? Utils.encryptPassword(j.getString("password")) : j.getString("password");
+
+        User user = new User(j.getString("username"),
+                            hashedPassword,
+                            j.getString("email"),
+                            ids);
 
         return user;
     }
@@ -64,15 +71,15 @@ public class User {
 
         // If rsvpIds is null, empty JSON array will be built (arr = [])
         if(rsvpIds != null && !rsvpIds.isEmpty()) {
-            for(String jioID : rsvpIds) 
-                jArrBuilder.add(jioID);
+            for(String rsvpID : rsvpIds) 
+                jArrBuilder.add(rsvpID);
         }
 
         JsonObject job = Json.createObjectBuilder()
-                        .add("name", name)
-                        .add("password", password)
+                        .add("userId", userId)
+                        .add("username", username)
                         .add("email", email)
-                        .add("jioIDs", jArrBuilder.build())
+                        .add("rsvpIds", jArrBuilder.build())
                         .build();
 
         return job.toString();
@@ -82,11 +89,17 @@ public class User {
     public String toString() {
         return toJson();
     }
-    public String getName() {
-        return name;
+    public String getUserId() {
+        return userId;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
     public String getPassword() {
         return password;

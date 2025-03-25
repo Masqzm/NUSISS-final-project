@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  login() {
+  async login() {
     tuiMarkControlAsTouchedAndValidate(this.form)
 
     if(this.form.invalid)
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       password: this.form.value['password']
     }
 
-    const loginAuthResponse = this.authSvc.login(authForm)
+    const loginAuthResponse = await this.authSvc.login(authForm)
 
     if(loginAuthResponse == 'success') {
       // go back to prev page if there's history
@@ -72,6 +72,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-    console.info('login w google')
+    this.authSvc.loginGoogle()
   }
 }

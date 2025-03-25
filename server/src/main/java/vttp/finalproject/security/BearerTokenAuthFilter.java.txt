@@ -1,0 +1,59 @@
+package vttp.finalproject.security;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import vttp.finalproject.models.User;
+import vttp.finalproject.services.UserService;
+
+// Filter for requests thru inspecting access tokens from client
+// REF: https://medium.com/@sallu-salman/implementing-token-based-authentication-in-a-spring-boot-project-dba7811ffcee
+@Component
+public class BearerTokenAuthFilter extends OncePerRequestFilter {
+    @Autowired
+    private UserService userSvc;
+
+    @Override
+    protected void doFilterInternal(
+        HttpServletRequest request, HttpServletResponse response, 
+        FilterChain filterChain) throws ServletException, IOException {
+
+        String authHeader = request.getHeader("Authorization");
+
+        if(authHeader != null && authHeader.startsWith("Bearer ") && !authHeader.substring(7).isBlank()) {
+            String accessToken = authHeader.substring(7);
+            User user = isTokenValid(accessToken);
+
+            if(user == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            } else {
+                // Store User obj into SecurityContextHolder as an Authentication obj
+                Authentication authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserId(), null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    private User isTokenValid(String token) {
+        OauthToken oauthToken = tokenRepository.findById(token).orElse(null);
+
+        if(oauthToken == null || oauthToken.getExpirationTime().isBefore(LocalDateTime.now())) {
+            return null;
+        }
+        return oauthToken.getUser();
+    }
+}

@@ -33,6 +33,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/icons",
               "src/manifest.json",
               "src/reg-sw.js",
               "src/service-worker.js",

@@ -1,11 +1,10 @@
-package vttp.finalproject;
+package vttp.finalproject.utils;
 
 import java.util.List;
 
 import jakarta.json.JsonObject;
 
 public class Constants {
-    public static final String REDIS_TEMPLATE = "redis-0";
     public static final String REDIS_KEY_USER = "USERS";      
     public static final String REDIS_KEY_JIOS = "JIOS";    
     public static final String REDIS_KEY_SEARCH_CACHE = "RESULTS";      // search results cache key

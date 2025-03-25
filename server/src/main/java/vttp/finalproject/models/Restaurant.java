@@ -1,5 +1,7 @@
 package vttp.finalproject.models;
 
+import static vttp.finalproject.utils.Constants.*;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +11,6 @@ import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
-
-import static vttp.finalproject.Constants.*;
 
 public class Restaurant {
     private String id;

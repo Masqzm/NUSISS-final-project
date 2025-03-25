@@ -5,7 +5,7 @@ import { of } from "rxjs";
 import {
     TuiIcon, TuiIconPipe, TuiLink,
     TuiTitle, TuiButton, TuiAppearance,    
-    TuiTextfield, TuiError, TuiSurface
+    TuiTextfield, TuiError, TuiSurface,
 } from '@taiga-ui/core';
 
 import {

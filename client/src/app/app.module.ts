@@ -37,19 +37,22 @@ import { RestaurantInfoComponent } from './components/restaurant-info.component'
 import { SearchService } from './services/search.service';  
 import { AuthService } from './services/auth.service';
 import { UserStore } from './user.store';
+import { allowRegistration } from './guards';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  //{ path: 'search', component: SearchComponent },
   { path: 'search', component: ListRestaurantComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'restaurant/:id', component: RestaurantComponent },
   { path: 'rsvp/:rsvpId', component: ViewRsvpComponent },
   { path: 'myRsvp', component: ListRsvpSelfComponent },
   { path: 'allRsvp', component: ListRsvpAllComponent },
-  { path: '**', redirectTo: '/', pathMatch: 'full' }  
+  
+  // Route guards
+  { path: 'register', component: RegisterComponent, canActivate: [allowRegistration] },
+
+  { path: '**', redirectTo: '/', pathMatch: 'full' },  
 ]
 
 @NgModule({

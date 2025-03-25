@@ -12,15 +12,15 @@ export interface Restaurant {
     userRatingCount: number     // total users rated
     
     openingHours: string[]
-    rsvpIds: []
+    rsvpIds: string[]
 }
 
 // User authentication
 export interface User {
-    user_id: string             // might not need
+    userId: string
     email: string
     username: string
-    token: string
+    rsvpIds: string[]
 }
 
 export interface UserAuthForm {
