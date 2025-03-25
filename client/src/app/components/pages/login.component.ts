@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   protected form!: FormGroup
   
   protected authFailed = false
-  protected authFailedTVE = new TuiValidationError('Invalid username or password!')
+  protected authFailedTVE!: TuiValidationError
   
   constructor(private location: Location) {}
 
@@ -59,12 +59,17 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/'])
     } else {
       this.authFailed = true
-      
-      if(loginAuthResponse != 'invalid') {
-        this.authFailedTVE = new TuiValidationError('Server error. Please try again')
-        console.error('Login Error: ', loginAuthResponse)
-      }
+      console.error('loginAuthResponse: ', loginAuthResponse)
+      if(loginAuthResponse == 'invalid')
+        this.authFailedTVE = new TuiValidationError('Invalid username or password!') 
+      else
+        this.authFailedTVE = new TuiValidationError('Server error. Please try again') 
     }
+
+    // Reset authFailed after 2s
+    setTimeout(() => {
+      this.authFailed = false;
+    }, 2000);
   }
 
   loginFail(): TuiValidationError | null {

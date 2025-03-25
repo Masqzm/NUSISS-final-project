@@ -68,6 +68,11 @@ export class RegisterComponent implements OnInit {
       else 
         this.authFailedTVE = new TuiValidationError('Server error. Please try again')
     }    
+
+    // Reset authFailed after 2s
+    setTimeout(() => {
+      this.authFailed = false;
+    }, 2000);
   }
 
   regFail(): TuiValidationError | null {
@@ -75,6 +80,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerGoogle() {
-    console.info('register w google')
+    console.info('cont w google')
+    this.authSvc.loginGoogle()
   }
 }

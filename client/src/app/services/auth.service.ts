@@ -29,7 +29,7 @@ export class AuthService {
       return result.message ? result.message : 'unknown server error'
     } catch (err: any) {
       console.error('err: ', err)
-      return err.message ? err.message : 'unknown server error'
+      return err.error.message ? err.error.message : 'unknown server error' //err.error.message
     }
   }
 

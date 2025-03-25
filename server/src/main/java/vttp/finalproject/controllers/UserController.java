@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody String form) {
-        System.out.println(form);
+        //System.out.println(form);
         // Check if user exists
         try {
             User user = User.jsonToUser(form, true);
@@ -63,10 +63,34 @@ public class UserController {
     }
     
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestBody String form) {        
+    public ResponseEntity<String> login(@RequestBody String form) {       
+        System.out.println(form);
         // Check if user exists
+        try {
+            User user = User.jsonToUser(form, false);   // dont encrypt password as we need to check it later
+            user = userSvc.validateUser(user);  // will make user null if user given credentials fails
 
-        return ResponseEntity.ok("{}"); 
+            if(user == null) {
+                String response = Json.createObjectBuilder()
+                            .add("message", "invalid")
+                            .build().toString();  
+
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+            
+            // User credentials passes 
+            // Send back User obj for successful registration (so clientside can use)
+            String response = user.toJson();
+            
+            return ResponseEntity.ok().body(response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            String response = Json.createObjectBuilder()
+                            .add("message", ex.getMessage())
+                            .build().toString();  
+      
+            return ResponseEntity.status(500).body(response);
+        }
     }
     
     // Google sign-in ref: https://medium.com/@sallu-salman/implementing-sign-in-with-google-in-spring-boot-application-5f05a34905a8

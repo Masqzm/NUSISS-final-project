@@ -27,6 +27,7 @@ export class UserStore extends ComponentStore<UserSlice> {
     }
 
     resetStore() {
+        console.info('logging out... resetting store')
         this.setState(INIT)
     }
 
@@ -42,7 +43,7 @@ export class UserStore extends ComponentStore<UserSlice> {
     )
 
     // Selectors (query)
-    readonly getUser$ = () => this.select<User>(
+    readonly getUser$ = this.select<User>(
         (slice: UserSlice) => slice.user
     )
 }

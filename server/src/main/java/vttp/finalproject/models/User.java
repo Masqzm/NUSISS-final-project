@@ -30,8 +30,8 @@ public class User {
     @Email(message = "Please enter a vaild email")
     private String email;
 
-    private List<String> rsvpIds;    // to keep track of upcoming jio events user is attending
-    //private List<Restaurant> favRestaurants;      // add-on feature
+    private List<String> rsvpIds = new ArrayList<>();   // to keep track of upcoming jio events user is attending
+    //private List<Restaurant> favRestaurants;          // add-on feature
 
     public User() {}
     public User(String username, String password, String email, List<String> rsvpIds) {
@@ -74,6 +74,9 @@ public class User {
             for(String rsvpID : rsvpIds) 
                 jArrBuilder.add(rsvpID);
         }
+
+        if(userId == null) 
+            userId = "";
 
         JsonObject job = Json.createObjectBuilder()
                         .add("userId", userId)

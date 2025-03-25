@@ -12,7 +12,7 @@ header {
     font-weight: bold;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .logo i {
@@ -26,7 +26,12 @@ nav {
 
 .btn {
     margin-left: 10px;
-    font-weight: 500;
+    font-weight: 400;
+}
+
+.btn-auth {
+    border: solid white 2px !important;
+    color: white;
 }
 
 /* nav button {

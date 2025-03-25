@@ -12,7 +12,20 @@
     <nav>
         <button class="btn" tuiButton [routerLink]="['/about']" appearance="flat" [style.color]="'white'" size="m">About</button>
         <button class="btn" tuiButton [routerLink]="['/allRsvp']" appearance="flat" [style.color]="'white'" size="m">All Jios</button>
-        <button class="btn" id="login" tuiButton [routerLink]="['/login']" appearance="outline-grayscale" size="m" iconStart="@tui.user-round">Login</button>
-        <button class="btn" id="register" tuiButton [routerLink]="['/register']" appearance="primary-grayscale" size="m">Register</button>
+        @if(user$ | async; as user)
+        {
+            @if(user.userId != '') {
+                <button class="btn btn-auth" tuiButton (click)="checkUser()" [routerLink]="['/myRsvp']" appearance="outline-grayscale" size="m">My Jios</button>
+                <button class="btn btn-auth" tuiButton (click)="logout()" appearance="outline-grayscale" size="m">
+                    <tui-icon icon="@tui.user-round" [style.color]="'white'"/>Logout
+                </button>
+            }
+            @else {
+                <button class="btn btn-auth" tuiButton [routerLink]="['/register']" appearance="outline-grayscale" size="m">Sign up</button>
+                <button class="btn btn-auth" tuiButton [routerLink]="['/login']" appearance="outline-grayscale" size="m">
+                    <tui-icon icon="@tui.user-round" [style.color]="'white'"/>Login
+                </button>
+            }
+        }         
     </nav>
 </header>

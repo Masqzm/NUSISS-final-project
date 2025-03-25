@@ -37,20 +37,20 @@ import { RestaurantInfoComponent } from './components/restaurant-info.component'
 import { SearchService } from './services/search.service';  
 import { AuthService } from './services/auth.service';
 import { UserStore } from './user.store';
-import { allowRegistration } from './guards';
+import { allowAuth } from './guards';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'search', component: ListRestaurantComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'restaurant/:id', component: RestaurantComponent },
   { path: 'rsvp/:rsvpId', component: ViewRsvpComponent },
   { path: 'myRsvp', component: ListRsvpSelfComponent },
   { path: 'allRsvp', component: ListRsvpAllComponent },
-  
+
   // Route guards
-  { path: 'register', component: RegisterComponent, canActivate: [allowRegistration] },
+  { path: 'register', component: RegisterComponent, canActivate: [allowAuth] },
+  { path: 'login', component: LoginComponent, canActivate: [allowAuth] },
 
   { path: '**', redirectTo: '/', pathMatch: 'full' },  
 ]
