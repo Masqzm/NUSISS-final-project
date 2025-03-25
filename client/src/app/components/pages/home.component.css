@@ -5,11 +5,16 @@
     align-items: center;
     gap: 2vh;
 
-    padding-top: 10vh;  /* TODO: adjust to center? */
+    padding-top: 18vh;  /* TODO: adjust to center? */
 }
 
 .title {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+app-search {
+    margin-top: 12px;
+    margin-left: 110px;
 }
