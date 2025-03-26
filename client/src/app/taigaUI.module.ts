@@ -5,12 +5,12 @@ import { of } from "rxjs";
 import {
     TuiIcon, TuiIconPipe, TuiLink,
     TuiTitle, TuiButton, TuiAppearance,    
-    TuiTextfield, TuiError, TuiSurface,
+    TuiTextfield, TuiError, TuiSurface
 } from '@taiga-ui/core';
 
 import {
     TuiHeader, TuiSearch, TuiCardLarge, 
-    TuiCell, TuiForm
+    TuiCell, TuiForm, TuiBlockStatus
 } from '@taiga-ui/layout';
 
 import {
@@ -26,7 +26,8 @@ import {
         TuiAppearance, ...TuiSearch, ...TuiTextfield,
         TuiError, TuiFieldErrorPipe, TuiSurface, 
         TuiCardLarge, TuiCell, TuiAvatar, 
-        TuiChip, TuiForm, TuiPassword
+        TuiChip, TuiForm, TuiPassword,
+        ...TuiBlockStatus
     ],
     exports: [
         // Add modules as needed here
@@ -35,7 +36,8 @@ import {
         TuiAppearance, ...TuiSearch, ...TuiTextfield,
         TuiError, TuiFieldErrorPipe, TuiSurface, 
         TuiCardLarge, TuiCell, TuiAvatar, 
-        TuiChip, TuiForm, TuiPassword
+        TuiChip, TuiForm, TuiPassword,
+        ...TuiBlockStatus
     ],
     providers: [
         // Ref: https://taiga-ui.dev/pipes/field-error#custom-messages

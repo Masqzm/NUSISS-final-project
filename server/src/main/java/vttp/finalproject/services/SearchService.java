@@ -1,5 +1,6 @@
 package vttp.finalproject.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import vttp.finalproject.models.Restaurant;
+import vttp.finalproject.repo.RestaurantRepo;
 
 import static vttp.finalproject.utils.Constants.*;
 
@@ -18,6 +20,9 @@ import java.util.Optional;
 
 @Service
 public class SearchService {
+    @Autowired
+    private RestaurantRepo restaurantRepo;
+    
     @Value("${google.api.key}") 
     private String googleAPIkey;
 
@@ -43,11 +48,15 @@ public class SearchService {
         try {
             ResponseEntity<String> resp = template.exchange(req, String.class);
             String payload = resp.getBody();
-            
-            //searchRepo.cacheSearchResults(keyword, payload);
-            
+
             // Convert response to list of Restaurant objs
-            return Optional.ofNullable(Restaurant.jsonToRestaurantList(payload, googleAPIkey));
+            List<Restaurant> restaurants = Restaurant.jsonToRestaurantList(payload, googleAPIkey);
+            
+            // cache restaurant search results
+            if(restaurants != null)
+                restaurantRepo.insertRestaurants(restaurants);
+            
+            return Optional.ofNullable(restaurants);
         } catch(Exception ex) {
             ex.printStackTrace();
             throw ex;

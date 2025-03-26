@@ -18,7 +18,7 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class Jio {
+public class Rsvp {
     private String id;   
     private String posterName;
     private String restaurantID;
@@ -31,27 +31,27 @@ public class Jio {
     private LocalTime time;
 
     private int capacity;
-    private boolean jioingForPromo;
+    private boolean rsvpingForPromo;
 
     @Size(min = 1, message = "*Please select at least one topic")
     private List<String> topics;
     private List<String> attendeesNameList;   // inclusive of poster
 
-    public Jio() {}
-    public Jio(String id, String posterName, String restaurantID, LocalDate date, LocalTime time,
-            int capacity, boolean jioingForPromo, List<String> topics, List<String> attendeesNameList) {
+    public Rsvp() {}
+    public Rsvp(String id, String posterName, String restaurantID, LocalDate date, LocalTime time,
+            int capacity, boolean rsvpingForPromo, List<String> topics, List<String> attendeesNameList) {
         this.id = id;
         this.posterName = posterName;
         this.restaurantID = restaurantID;
         this.date = date;
         this.time = time;
         this.capacity = capacity;
-        this.jioingForPromo = jioingForPromo;
+        this.rsvpingForPromo = rsvpingForPromo;
         this.topics = topics;
         this.attendeesNameList = attendeesNameList;
     }
 
-    public static Jio jsonToJio(String json) {
+    public static Rsvp jsonTorsvp(String json) {
         if (json == null)
             return null;
         
@@ -75,15 +75,15 @@ public class Jio {
         LocalDate date = zonedDateTime.toLocalDate();
         LocalTime time = zonedDateTime.toLocalTime();
 
-        Jio jio = new Jio(j.getString("id"), 
+        Rsvp rsvp = new Rsvp(j.getString("id"), 
                         j.getString("posterName"),
                         j.getString("restaurantID"), 
                         date, time,
                         j.getInt("capacity"),
-                        j.getBoolean("jioingForPromo"),
+                        j.getBoolean("rsvpingForPromo"),
                         topics, attendeesNameList);
 
-        return jio;
+        return rsvp;
     }
 
     public String toJson() {
@@ -102,7 +102,7 @@ public class Jio {
                         .add("restaurantID", restaurantID)
                         .add("unixTimestamp", convertToUnixTimestamp(date, time))
                         .add("capacity", capacity)
-                        .add("jioingForPromo", jioingForPromo)
+                        .add("rsvpingForPromo", rsvpingForPromo)
                         .add("topics", jArrBuilderTopics.build())
                         .add("attendees", jArrBuilderAttendees.build())
                         .build();
@@ -157,11 +157,11 @@ public class Jio {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    public boolean isJioingForPromo() {
-        return jioingForPromo;
+    public boolean isRsvpingForPromo() {
+        return rsvpingForPromo;
     }
-    public void setJioingForPromo(boolean jioingForPromo) {
-        this.jioingForPromo = jioingForPromo;
+    public void setRsvpingForPromo(boolean rsvpingForPromo) {
+        this.rsvpingForPromo = rsvpingForPromo;
     }
     public List<String> getTopics() {
         return topics;

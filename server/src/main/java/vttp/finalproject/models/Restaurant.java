@@ -29,17 +29,17 @@ public class Restaurant {
 
     //private boolean hasDineIn;
 
-    private List<String> openingHoursList;  // list of opening hours per day
+    private List<String> openingHours;  // list of opening hours per day
     //private List<String> cuisinesList;      // ADD-ON FEATURE, NOT PRIORITY (compare against data/fnb_types.txt)
     //private List<Review> reviewsList;       // ADD ON FEATURE, NOT PRIORITY
 
-    private List<String> jioIDList;             // stores all jios users has made
+    private List<String> rsvpIds;             // stores all rsvp ids (jio event IDs) users have made
 
     public Restaurant() {}
     public Restaurant(String id, String name, String address, String googleMapsURI, String googlePhotosURI,
             String websiteURI, double startPrice, double endPrice, String priceRange, double rating,
-            int userRatingCount, List<String> openingHoursList,
-            List<String> jioIDList) {
+            int userRatingCount, List<String> openingHours,
+            List<String> rsvpIds) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -51,11 +51,11 @@ public class Restaurant {
         this.priceRange = priceRange;
         this.rating = rating;
         this.userRatingCount = userRatingCount;
-        this.openingHoursList = openingHoursList;
-        this.jioIDList = jioIDList;
+        this.openingHours = openingHours;
+        this.rsvpIds = rsvpIds;
     }
 
-    // To parse search results response
+    // To parse search results response from Places API
     public static List<Restaurant> jsonToRestaurantList(String json, String googleAPIkey) {
         if(json == null || json.trim().equals("{}"))
             return null;
@@ -127,7 +127,7 @@ public class Restaurant {
                     openingHrs.add(jOpeningHrsArr.getString(k));
                 }
                 
-                rest.setOpeningHoursList(openingHrs);
+                rest.setOpeningHours(openingHrs);
             }
 
             restaurantsList.add(rest);
@@ -138,23 +138,24 @@ public class Restaurant {
 
     // To parse restaurant json saved
     public static Restaurant jsonToRestaurant(String json) {
+        //System.out.println(json);
         if(json == null)
             return null;
 
         JsonReader reader = Json.createReader(new StringReader(json));
         JsonObject j = reader.readObject();
 
-        JsonArray jArrOH = j.getJsonArray("openingHoursList");
-        JsonArray jArrJioIDs = j.getJsonArray("jioIDList");
+        JsonArray jArrOH = j.getJsonArray("openingHours");
+        JsonArray jArrRsvpIDs = j.getJsonArray("rsvpIds");
         
         List<String> openingHrs = new ArrayList<>();
-        List<String> jioIDs = new ArrayList<>();
+        List<String> rsvpIDs = new ArrayList<>();
         
         for(int i = 0; i < jArrOH.size(); i++) 
             openingHrs.add(jArrOH.getString(i));
         
-        for(int i = 0; i < jArrJioIDs.size(); i++) 
-            jioIDs.add(jArrJioIDs.getString(i));
+        for(int i = 0; i < jArrRsvpIDs.size(); i++) 
+            rsvpIDs.add(jArrRsvpIDs.getString(i));
 
         Restaurant rest = new Restaurant(j.getString("id"),
                                 j.getString("name"),
@@ -167,21 +168,21 @@ public class Restaurant {
                                 j.getString("priceRange"),
                                 j.getJsonNumber("rating").doubleValue(),
                                 j.getInt("userRatingCount"),
-                                openingHrs, jioIDs);
+                                openingHrs, rsvpIDs);
                                 
         return rest;
     }
     public JsonObject toJson() {
         JsonArrayBuilder jArrBOpeningHrs = Json.createArrayBuilder();
-        JsonArrayBuilder jArrBJioIDs = Json.createArrayBuilder();
+        JsonArrayBuilder jArrBRsvpIDs = Json.createArrayBuilder();
         
-        for (String openingHrs : openingHoursList)
+        for (String openingHrs : openingHours)
             jArrBOpeningHrs.add(openingHrs);
         
-        // If jioIDList is null, empty JSON array will be built (arr = [])
-        if(jioIDList != null && !jioIDList.isEmpty()) {
-            for (String jioID : jioIDList)
-                jArrBJioIDs.add(jioID);
+        // If rsvpIds is null, empty JSON array will be built (arr = [])
+        if(rsvpIds != null && !rsvpIds.isEmpty()) {
+            for (String rsvpID : rsvpIds)
+                jArrBRsvpIDs.add(rsvpID);
         } 
 
         if(this.id == null)
@@ -203,8 +204,8 @@ public class Restaurant {
                         .add("priceRange", this.priceRange)
                         .add("rating", this.rating)
                         .add("userRatingCount", this.userRatingCount)
-                        .add("openingHoursList", jArrBOpeningHrs.build())
-                        .add("jioIDList", jArrBJioIDs.build())
+                        .add("openingHours", jArrBOpeningHrs.build())
+                        .add("rsvpIds", jArrBRsvpIDs.build())
                         .build(); 
 
         return json;
@@ -281,11 +282,11 @@ public class Restaurant {
     public void setUserRatingCount(int userRatingCount) {
         this.userRatingCount = userRatingCount;
     }
-    public List<String> getOpeningHoursList() {
-        return openingHoursList;
+    public List<String> getOpeningHours() {
+        return openingHours;
     }
-    public void setOpeningHoursList(List<String> openingHoursList) {
-        this.openingHoursList = openingHoursList;
+    public void setOpeningHours(List<String> openingHours) {
+        this.openingHours = openingHours;
     }
     // public List<String> getCuisinesList() {
     //     return cuisinesList;
@@ -299,10 +300,10 @@ public class Restaurant {
     // public void setReviewsList(List<Review> reviewsList) {
     //     this.reviewsList = reviewsList;
     // }
-    public List<String> getJioIDList() {
-        return jioIDList;
+    public List<String> getRsvpIds() {
+        return rsvpIds;
     }
-    public void setJioIDList(List<String> jioIDList) {
-        this.jioIDList = jioIDList;
+    public void setRsvpIds(List<String> rsvpIds) {
+        this.rsvpIds = rsvpIds;
     }
 }

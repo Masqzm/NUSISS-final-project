@@ -1,1 +1,66 @@
-<p>restaurant works!</p>
+<app-search></app-search>
+
+@if (result$ | async; as rest) {
+<div class="container">
+    <div class="container-top">
+        <div tuiCardLarge tuiSurface="floating" class="card">
+            <img class="rest-img"
+                [src]="rest.googlePhotosURI"
+                onerror="this.src='assets/placeholders/restaurant.svg'"
+                alt="restaurant image"
+            />
+            <header tuiHeader>
+                <h2 tuiTitle class="center">
+                    {{rest.name}}
+                    <span tuiSubtitle>{{rest.address}}</span>
+                </h2>
+            </header>
+            <section class="center">
+                <!-- 1.0-0 = {minIntDigits}.{minDecDigits}-{maxDecDigits} -->
+                <tui-chip>{{rest.startPrice | currency: '$': 'symbol': '1.0-0'}}-{{rest.endPrice | number: '1.0-0'}}</tui-chip>
+                
+                <p class="rating center">
+                    <tui-icon 
+                        icon="@tui.star" background="@tui.star-filled" 
+                        [style.color]="'var(--tui-background-accent-2)'" [style.background]="'var(--tui-background-accent-2)'"
+                    >
+                    </tui-icon> {{rest.rating}}/5.0 ({{rest.userRatingCount}} users rated)
+                </p>
+
+                @for (dailyOH of rest.openingHours; track $index) {
+                    <p class="dailyOH">{{dailyOH}}</p>
+                }
+            
+                <div class="btm-icons">
+                    <a [href]="rest.googleMapsURI"><tui-icon icon="@tui.map-pinned" [style.color]="'red'"/></a>
+                    @if (rest.websiteURI) {
+                        <a [href]="rest.websiteURI"><tui-icon icon="@tui.link" [style.color]="'blue'"/></a>
+                    }
+                </div>
+            </section>
+        </div>
+
+        <app-rsvp-form></app-rsvp-form>
+    </div>
+    <div class="container-btm">
+
+    </div>
+</div>
+
+}
+@else {
+    <div class="not-found">
+        <img alt="not found" src="./assets/images/404.svg" class="img404" />
+        <h1>Restaurant not found</h1>
+        <!-- <tui-block-status>
+            <img
+                alt="not found"
+                src="./assets/images/404.svg"
+                tuiSlot="top"
+                class="image"
+            />
+        
+            <h4>Restaurant not found</h4>
+        </tui-block-status> -->
+    </div>
+}

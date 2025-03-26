@@ -52,7 +52,7 @@ public class AppBootstrap implements CommandLineRunner {
                 // Remove last comma
                 sb.setLength(sb.length() - 1);
 
-                Constants.JIO_TOPICS_LIST = Arrays.asList(sb.toString().split(","));
+                Constants.RSVP_TOPICS_LIST = Arrays.asList(sb.toString().split(","));
             }
         } catch (IOException ex) {
             System.err.println("Error loading files!");

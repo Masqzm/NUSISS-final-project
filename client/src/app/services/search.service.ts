@@ -7,11 +7,11 @@ import { Restaurant } from "../models";
 export class SearchService {
     private http = inject(HttpClient)
 
-    // FOR PLACEHOLDER TEST
-    // search(query: string) {
-    //     console.info('searchSvc search(q): ', query)
-    // }
     search(query: string): Observable<Restaurant[]> {
         return this.http.get<Restaurant[]>(`/api/search?q=${query}`)
+    }
+
+    getRestaurant(id: string): Observable<Restaurant> {
+        return this.http.get<Restaurant>(`/api/restaurant/${id}`)
     }
 }

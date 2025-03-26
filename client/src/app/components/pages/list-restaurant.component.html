@@ -1,33 +1,6 @@
 <app-search></app-search>
 <h1>Search results for "{{query}}":</h1>
 <br>
-<!--    
-@for (rest of testData; track $index) {     
-    <button tuiCardLarge tuiSurface="floating" type="button" [routerLink]="['/restaurant/', rest.id]">
-        <img class="rest-img"
-            src="assets/placeholders/restaurant.svg"
-            alt="restaurant image"
-        />
-        <header tuiHeader>
-            <h2 tuiTitle>
-                {{rest.name}}
-                <span tuiSubtitle>{{rest.address}}</span>
-            </h2>
-        </header>
-        <section>
-            <tui-chip>{{rest.startPrice | currency: '$': 'symbol': '1.0-0'}}-{{rest.endPrice | number: '1.0-0'}}</tui-chip>
-            
-            <p class="rating">
-                <tui-icon 
-                    icon="@tui.star" background="@tui.star-filled" 
-                    [style.color]="'var(--tui-background-accent-2)'" [style.background]="'var(--tui-background-accent-2)'"
-                >
-                </tui-icon> {{rest.rating}}/5.0 (123)
-            </p>
-        </section>
-    </button>
-}
--->
 
 @if (results$ | async; as restaurants;) {
     <div class="results">
@@ -36,7 +9,7 @@
         <button tuiCardLarge tuiSurface="floating" type="button" [routerLink]="['/restaurant/', rest.id]">
             <img class="rest-img"
                 [src]="rest.googlePhotosURI"
-                onerror="this.src='assets/placeholders/restaurant.svg'"
+                onerror="this.src='assets/images/restaurant.svg'"
                 alt="restaurant image"
             />
             <header tuiHeader>
