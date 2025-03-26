@@ -21,6 +21,9 @@ import vttp.finalproject.models.User;
 
 @Service
 public class OAuth2Service {
+    @Value("${client.base.url}")
+    private static String clientBaseUrl;
+
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleOAuth2ClientId;
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
@@ -29,7 +32,7 @@ public class OAuth2Service {
     private String googleUserInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
     
     // For Google sign-in to redirect & send OAuth2 code to backend
-    public static String googleOAuth2RedirectUri = "http://localhost:8080/api/oauth2/callback";  
+    public static String googleOAuth2RedirectUri = clientBaseUrl + "/api/oauth2/callback";  
 
     @Autowired
     private UserService userSvc;

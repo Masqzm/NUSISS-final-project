@@ -24,6 +24,8 @@ public class OAuth2Controller {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleOAuth2ClientId;
+    @Value("${client.base.url}")
+    private String clientBaseUrl;
     
     // Google sign-in ref: https://medium.com/@sallu-salman/implementing-sign-in-with-google-in-spring-boot-application-5f05a34905a8
     // Auth flow:
@@ -61,19 +63,19 @@ public class OAuth2Controller {
             // set error message in sess for frontend to callback (/api/oauth2/user), to retrieve
             sess.setAttribute("message", ex.getMessage());
       
-            response.sendRedirect("http://localhost:4200/login");   // TODO: change to 8080 for deployment
+            response.sendRedirect(clientBaseUrl + "/#/login");
         }
 
         if (user == null) {
             sess.setAttribute("message", "unknown server error");
       
-            response.sendRedirect("http://localhost:4200/login");   // TODO: change to 8080 for deployment
+            response.sendRedirect(clientBaseUrl + "/#/login"); 
         }
         // set user in sess for frontend to callback (/api/oauth2/user), to retrieve
         sess.setAttribute("userJSON", user.toJson());
             
         //System.out.println("JSON set: " + user.toJson());
-        response.sendRedirect("http://localhost:4200");     // TODO: change to 8080 for deployment
+        response.sendRedirect(clientBaseUrl);
     }
 
     @GetMapping("/user")    // to be called by frontend as well to retrieve User payload

@@ -39,6 +39,7 @@ import { AuthService } from './services/auth.service';
 import { UserStore } from './user.store';
 import { allowAuth } from './guards';
 import { RsvpService } from './services/rsvp.service';
+import { PaymentService } from './services/payment.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -87,6 +88,7 @@ const appRoutes: Routes = [
     SearchService,
     AuthService,
     RsvpService,
+    PaymentService,
     UserStore,
     provideHttpClient(),
     NG_EVENT_PLUGINS

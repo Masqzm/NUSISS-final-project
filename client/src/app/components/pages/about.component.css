@@ -1,0 +1,53 @@
+header h3 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+}
+
+.col {
+    max-width: 450px;
+}
+
+.row-ctr {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 80px;
+}
+
+.text-light {
+    color: var(--tui-text-secondary);
+}
+
+.separator {
+    /* border: 1px solid var(--tui-text-tertiary);
+    border-radius: 10px; */
+     
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), var(--tui-text-tertiary), rgba(0, 0, 0, 0)); 
+    border-radius: 2px;
+
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.subtitle {
+    color: var(--tui-text-secondary);
+}
+
+.row-btm {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+/* .row-btm button {
+    background-color: var(--tui-text-action);
+} */

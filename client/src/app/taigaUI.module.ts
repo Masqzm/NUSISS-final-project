@@ -5,7 +5,8 @@ import { of } from "rxjs";
 import {
     TuiIcon, TuiIconPipe, TuiLink,
     TuiTitle, TuiButton, TuiAppearance,    
-    TuiTextfield, TuiError, TuiSurface
+    TuiTextfield, TuiError, TuiSurface,
+    TuiDialog
 } from '@taiga-ui/core';
 
 import {
@@ -15,8 +16,10 @@ import {
 
 import {
     TuiFieldErrorPipe, tuiValidationErrorsProvider, TuiAvatar, 
-    TuiChip, TuiPassword
+    TuiChip, TuiPassword, TuiInputNumber
 } from '@taiga-ui/kit';
+
+import {TuiAutoFocus} from '@taiga-ui/cdk';
 
 @NgModule({
     imports: [
@@ -27,7 +30,8 @@ import {
         TuiError, TuiFieldErrorPipe, TuiSurface, 
         TuiCardLarge, TuiCell, TuiAvatar, 
         TuiChip, TuiForm, TuiPassword,
-        ...TuiBlockStatus
+        ...TuiBlockStatus, TuiAutoFocus, TuiDialog, 
+        ...TuiInputNumber
     ],
     exports: [
         // Add modules as needed here
@@ -37,7 +41,8 @@ import {
         TuiError, TuiFieldErrorPipe, TuiSurface, 
         TuiCardLarge, TuiCell, TuiAvatar, 
         TuiChip, TuiForm, TuiPassword,
-        ...TuiBlockStatus
+        ...TuiBlockStatus, TuiAutoFocus, TuiDialog, 
+        ...TuiInputNumber
     ],
     providers: [
         // Ref: https://taiga-ui.dev/pipes/field-error#custom-messages

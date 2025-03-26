@@ -1,1 +1,83 @@
-<p>about works!</p>
+<header tuiHeader="h3">
+    <hgroup tuiTitle>
+        <h3 class="center">About</h3>
+    </hgroup>
+</header>
+<div tuiCardLarge tuiSurface="floating" class="card">
+    <div class="container">
+        <div class="row-top">
+            <h1 class="card-title">JioMakan</h1>
+            <p class="card-text">At Jiomakan, we believe that great conversations and new friendships are best made
+            over a delicious meal. Our platform connects food lovers with others who share similar interests,
+            creating opportunities to dine together, chat about what you love, and build lasting connections.
+            Whether you're a foodie looking for a new dining buddy or someone wanting to bond over shared topics,
+            Jiomakan is the place where strangers turn into friends, one meal at a time.</p>
+        </div>
+
+        <div class="row-ctr">
+            <div class="col">
+                <h2 class="card-title">Jio /dʒiːoʊ/</h2>
+                <p class="card-text">A colloquial term used in Southeast Asia, specifically in Malaysia and Singapore,
+                    referring
+                    to an invitation or gathering, often with friends or family, to socialize, share meals, or enjoy
+                    experiences
+                    together.</p>
+
+                <div class="mt-3">
+                    <strong>Example</strong>
+                    <p class="text-light"><i>"Wahh why just now you go makan never jio me!"</i></p>
+                </div>
+
+                <div class="mt-3">
+                    <strong>Etymology:</strong>
+                    <p class="text-light">Derived from the Malay word for "invite," often used in the context of casual
+                    and
+                    friendly gatherings.</p>
+                </div>
+            </div>
+
+            <div class="col">
+                <h2 class="card-title">Makan /ˈma.kan/</h2>
+                <p class="card-text">A Malay word meaning "to eat" or "meal." It is commonly used in Southeast Asia,
+                    particularly in Malaysia and Singapore, to refer to eating or dining in a casual context, often with
+                    family or friends.</p>
+
+                <div class="mt-3">
+                    <strong>Example</strong>
+                    <p class="text-light"><i>"Paiseh lah, next time I jio you makan ok?"</i></p>
+                </div>
+
+                <div class="mt-3">
+                    <strong>Etymology:</strong>
+                    <p class="text-light">The word "makan" comes from the Malay language, where it is the verb for "to
+                    eat."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="row-btm">
+            <div>
+                <h1>Donate to help site stay alive?</h1>
+                <div class="subtitle">Every bit helps!</div>     
+            </div>
+            <!-- <a href="https://www.flaticon.com/free-icons/donations" title="donations icons">Donations icons created by IconBaandar - Flaticon</a> -->
+            <button (click)="showDialog()" tuiButton appearance="primary" type="button"><tui-avatar size="m"src="/icons/donate.png"/>Donate</button> 
+            <ng-template
+                let-observer
+                [tuiDialogOptions]="{label: 'How much would you like to donate?', size: 's'}"
+                [(tuiDialog)]="open"
+            >
+                <form [formGroup]="form" (ngSubmit)="donate(observer)">
+                    <p>Your contribution is greatly appreciated!</p>
+                    <tui-textfield tuiAutoFocus>
+                        <label tuiLabel>$SGD</label>
+                        <input tuiInputNumber formControlName="amount"/>
+                    </tui-textfield>
+                    <p><button tuiButton type="submit" [disabled]="form.invalid">Confirm</button></p>
+                </form>
+            </ng-template>
+        </div>
+    </div>
+</div>

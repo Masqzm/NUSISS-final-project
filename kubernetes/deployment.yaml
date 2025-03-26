@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: final-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: final-project
+  template:
+    metadata:
+      labels:
+        app: final-project
+    spec:
+      containers:
+        - name: final-project
+          image: registry.digitalocean.com/finalproject/mhazim95/finalproject:v1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: SPRING_DATA_MONGODB_URI
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: GOOGLE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: GOOGLE_API_KEY
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: final-project-secret
+                  key: STRIPE_SECRET_KEY
+            - name: CLIENT_BASE_URL
+              value: "http://146.190.195.93" 

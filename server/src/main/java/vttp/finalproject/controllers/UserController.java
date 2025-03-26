@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
 import vttp.finalproject.models.User;
-import vttp.finalproject.services.OAuth2Service;
 import vttp.finalproject.services.UserService;
 
 @RestController

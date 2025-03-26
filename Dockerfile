@@ -6,7 +6,7 @@ WORKDIR /src
 
 RUN npm i -g @angular/cli
 
-COPY client/public public
+#COPY client/public public
 COPY client/src src
 COPY client/*.json .
 
@@ -36,16 +36,22 @@ FROM openjdk:23-jdk
 
 WORKDIR /app
 
-COPY --from=j-build /src/target/final_project-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=j-build /src/target/finalproject-0.0.1-SNAPSHOT.jar app.jar
 
 ENV PORT=8080
 
+# DBs
 ENV SPRING_DATASOURCE_URL=
 ENV SPRING_DATASOURCE_USERNAME=
 ENV SPRING_DATASOURCE_PASSWORD=
 ENV SPRING_DATA_MONGODB_URI=
 
 ENV GOOGLE_API_KEY=
+
+ENV SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID=
+ENV SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET=
+
+ENV STRIPE_SECRET_KEY=
 
 EXPOSE ${PORT}
 
