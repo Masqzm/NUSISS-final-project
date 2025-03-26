@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.authorizeHttpRequests(req -> req
-            .requestMatchers("/api/oauth2/code").permitAll() // Allow OAuth2 login callback
+            .requestMatchers("/api/oauth2/callback").permitAll() // Allow OAuth2 login callback
             .anyRequest().permitAll()   // Allow all other request
         )
         // Redirect on successful login

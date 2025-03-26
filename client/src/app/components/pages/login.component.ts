@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
       this.form = this.createForm()
+
+      this.authSvc.loginGoogleCheckStatus()
   }
   private createForm(): FormGroup {
     return this.fb.group({

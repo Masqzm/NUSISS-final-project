@@ -11,6 +11,7 @@ interface UserSlice {
 const INIT: UserSlice = {
     user: {
         userId: '',
+        providerId: '',
         email: '',
         username: '',
         rsvpIds: []
@@ -24,18 +25,32 @@ export class UserStore extends ComponentStore<UserSlice> {
 
     constructor() {
         super(INIT)
+        this.loadUserFromLocalStorage()
+    }
+
+    private loadUserFromLocalStorage() {
+        const storedUser = localStorage.getItem('user')
+        if(storedUser) {
+            this.setState({ 
+                user: JSON.parse(storedUser)
+            })
+        }
     }
 
     resetStore() {
         console.info('logging out... resetting store')
         this.setState(INIT)
+        localStorage.removeItem('user')
     }
 
     // Mutators - update mtds
     // setUser(newUser)                         // sets current user to store so user
     readonly setUser = this.updater<User>(      // can access pages requiring auth
         (slice: UserSlice, newUser: User) => {
-            console.info('setting current user to store: ', newUser)
+            console.info('setting current user to store and storage: ', newUser)
+            // Save the user to localStorage
+            localStorage.setItem('user', JSON.stringify(newUser));
+
             return {
                 user: newUser
             } as UserSlice

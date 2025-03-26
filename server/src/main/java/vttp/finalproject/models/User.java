@@ -16,7 +16,8 @@ import vttp.finalproject.utils.Utils;
 
 public class User {
     private String userId;
-
+    private String providerId;  // for those who sign in with google OAuth2
+    
     @NotBlank(message = "Username cannot be empty")
     @Size(min = 5, max = 32, message = "Username must be 3-16 characters long")
     @Pattern(regexp="^[a-zA-Z0-9_]+$", message="Only alphanumeric characters and underscores are allowed")
@@ -63,6 +64,11 @@ public class User {
                             j.getString("email"),
                             ids);
 
+        if(j.containsKey("userId"))
+            user.setUserId(j.getString("userId"));
+        if(j.containsKey("providerId"))
+            user.setProviderId(j.getString("providerId"));
+
         return user;
     }
 
@@ -77,9 +83,12 @@ public class User {
 
         if(userId == null) 
             userId = "";
+        if(providerId == null) 
+            providerId = "";
 
         JsonObject job = Json.createObjectBuilder()
                         .add("userId", userId)
+                        .add("providerId", providerId)
                         .add("username", username)
                         .add("email", email)
                         .add("rsvpIds", jArrBuilder.build())
@@ -94,6 +103,12 @@ public class User {
     }
     public String getUserId() {
         return userId;
+    }
+    public String getProviderId() {
+        return providerId;
+    }
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
     public void setUserId(String userId) {
         this.userId = userId;

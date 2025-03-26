@@ -9,16 +9,12 @@ export class AuthService {
   private http = inject(HttpClient)
   private userStore = inject(UserStore)
 
-  // Google sign-in ref: https://medium.com/@sallu-salman/implementing-sign-in-with-google-in-spring-boot-application-5f05a34905a8
-  private googleClientId = '965456258956-72p2vtec27mcvk17d586ola7v5b2dp0c.apps.googleusercontent.com'
-  private googleRedirectUri = 'http://localhost:8080/api/oauth2/code'  // For Google sign-in to redirect & send OAuth2 code to backend
-
   // returns 'success' for successful registration/login => redirect to homepage
   // returns <msg> for 500 errors (incl. email unavailable errors for reg, invalid user/pw)
   async postAuthForm(authMtd: string, form: UserAuthForm): Promise<string> {
     try {
       const result = await firstValueFrom(this.http.post<any>(`/api/${authMtd}`, form))
-      console.info('result: ', result)
+      //console.info('result: ', result)
       if(result.userId) {
         // User json is returned on registration success (hence User.userId available)
         this.userStore.setUser(result)
@@ -28,7 +24,7 @@ export class AuthService {
 
       return result.message ? result.message : 'unknown server error'
     } catch (err: any) {
-      console.error('err: ', err)
+      //console.error('err: ', err)
       return err.error.message ? err.error.message : 'unknown server error' //err.error.message
     }
   }
@@ -42,12 +38,38 @@ export class AuthService {
   }
   
   loginGoogle() {
-    // Scopes to access user's data from google (https://www.googleapis.com/auth/userinfo.email, https://www.googleapis.com/auth/userinfo.profile, openid)
-    const google_scope_uri = '&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline'
-    // Google sign in link
-    const google_uri = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${this.googleRedirectUri}&response_type=code&client_id=${this.googleClientId}` + google_scope_uri
-    // Redirect to google sign in
-    window.location.href = google_uri
+    localStorage.setItem('processingGoogleLogin', JSON.stringify(true))
+
+    window.location.href = 'http://localhost:8080/api/oauth2/google'
+  }
+
+  async loginGoogleCheckStatus() {
+    const isProcessingGoogleLogin = localStorage.getItem('processingGoogleLogin') === 'true';
+
+    if(!isProcessingGoogleLogin)
+      return
+
+    firstValueFrom(this.http.get<any>('/api/oauth2/user')).then(
+      (response) => {
+        //console.info('Received response on google login: ', response)
+        if(response.userId)
+          // User json is returned on registration success (hence User.userId available)
+          this.userStore.setUser(response)
+
+        localStorage.setItem('processingGoogleLogin', JSON.stringify(false))
+
+        // reload page
+        location: Location 
+        location.reload()
+      },
+      error => {
+        //console.error('Error fetching user data:', error); // Handle error
+
+        localStorage.setItem('processingGoogleLogin', JSON.stringify(false))
+
+        error.error.message ? alert(`Error signing in: ${error.error.message}`) : alert('Error signing in: unknown server error')
+      }
+    );
   }
 
   logout() {

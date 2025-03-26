@@ -22,10 +22,8 @@ public class UserRepo {
     public static final String GET_USERPROFILE_BY_ID = "SELECT * FROM user_profiles WHERE user_id = ?";
     public static final String GET_USERRSVPS_BY_ID = "SELECT * FROM user_rsvps WHERE user_id = ?";
 
-    public static final String INSERT_USER = "INSERT INTO users(user_id, email, password) VALUES (?, ?, ?)";
+    public static final String INSERT_USER = "INSERT INTO users(user_id, email, password, oauth2_id) VALUES (?, ?, ?, ?)";
     public static final String INSERT_USERPROFILE = "INSERT INTO user_profiles(user_id, username) VALUES (?, ?)";
-    
-    public static final String INSERT_USER_GOOGLE = "INSERT INTO users(user_id, email, oauth2_id) VALUES (?, ?, ?)";
 
     public Optional<User> getUserByEmail(String email) throws SQLException {
         try {
@@ -60,23 +58,15 @@ public class UserRepo {
         }
     }
 
-    public void createUser(User user) {
+    public void createUser(User user, boolean usingOAuth2) {
         Object[] data = new Object[] {
                         user.getUserId(),
                         user.getEmail(),
-                        user.getPassword()
+                        usingOAuth2 ? user.getProviderId() : user.getPassword(),
+                        usingOAuth2 ? user.getProviderId() : ""
                     };
 
         template.update(INSERT_USER, data);
-    }
-    public void createUserWGoogleAuth(User user, String oauth2Id) {
-        Object[] data = new Object[] {
-                        user.getUserId(),
-                        user.getEmail(),
-                        oauth2Id
-                    };
-
-        template.update(INSERT_USER_GOOGLE, data);
     }
     public void createUserProfile(User user) {
         Object[] data = new Object[] {

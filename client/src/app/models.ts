@@ -18,6 +18,7 @@ export interface Restaurant {
 // User authentication
 export interface User {
     userId: string
+    providerId: string
     email: string
     username: string
     rsvpIds: string[]
