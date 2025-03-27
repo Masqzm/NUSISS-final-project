@@ -1,0 +1,18 @@
+.rsvp-wrapper {
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr);  
+    gap: 16px;  
+  }
+
+.rsvp {
+    background: #fff;  
+    border: 1px solid #ddd;  
+    border-radius: 8px; 
+    padding: 20px;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+}
+
+/* Ensure that all cards look consistent */
+.rsvp > div {
+    margin-bottom: 8px;
+}

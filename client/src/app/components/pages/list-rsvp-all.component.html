@@ -1,1 +1,24 @@
-<p>list-rsvp-all works!</p>
+
+<div *ngIf="rsvps$ | async as rsvps">
+    <div *ngIf="rsvps.length > 0" class="rsvp-wrapper">
+        <div *ngFor="let rsvp of rsvps" class="rsvp">
+            <h2>Poster: {{ rsvp.posterName }}</h2>
+            <div><strong>RestaurantID:</strong> {{ rsvp.restaurantId }}</div>
+            <div><strong>When:</strong> {{ rsvp.timestamp }}</div>
+            <div><strong>Pax:</strong> {{ rsvp.capacity }}</div>
+            <div><strong>Jioing for promo:</strong> {{ rsvp.rsvpingForPromo }}</div>
+            <div><strong>Topics:</strong></div>
+            <div class="topics">
+                <div *ngFor="let topic of rsvp.topics">
+                    {{ topic }}
+                </div>
+            </div>
+            <div><strong>Attendees:</strong></div>
+            <div class="emails">
+                <div *ngFor="let email of rsvp.attendeesEmails">
+                    {{ email }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

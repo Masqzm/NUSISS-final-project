@@ -6,7 +6,7 @@ import {
     TuiIcon, TuiIconPipe, TuiLink,
     TuiTitle, TuiButton, TuiAppearance,    
     TuiTextfield, TuiError, TuiSurface,
-    TuiDialog
+    TuiDialog, TuiDataList
 } from '@taiga-ui/core';
 
 import {
@@ -16,10 +16,13 @@ import {
 
 import {
     TuiFieldErrorPipe, tuiValidationErrorsProvider, TuiAvatar, 
-    TuiChip, TuiPassword, TuiInputNumber
+    TuiChip, TuiPassword, TuiInputNumber, TuiDataListWrapper,
+    TuiCheckbox
 } from '@taiga-ui/kit';
 
 import {TuiAutoFocus} from '@taiga-ui/cdk';
+
+import {TuiInputDateTimeModule, TuiSelectModule, TuiTextfieldControllerModule} from '@taiga-ui/legacy';
 
 @NgModule({
     imports: [
@@ -31,7 +34,10 @@ import {TuiAutoFocus} from '@taiga-ui/cdk';
         TuiCardLarge, TuiCell, TuiAvatar, 
         TuiChip, TuiForm, TuiPassword,
         ...TuiBlockStatus, TuiAutoFocus, TuiDialog, 
-        ...TuiInputNumber
+        ...TuiInputNumber, TuiInputDateTimeModule,
+        TuiSelectModule, TuiTextfieldControllerModule,
+        ...TuiDataList, ...TuiDataListWrapper,
+        TuiCheckbox
     ],
     exports: [
         // Add modules as needed here
@@ -42,7 +48,10 @@ import {TuiAutoFocus} from '@taiga-ui/cdk';
         TuiCardLarge, TuiCell, TuiAvatar, 
         TuiChip, TuiForm, TuiPassword,
         ...TuiBlockStatus, TuiAutoFocus, TuiDialog, 
-        ...TuiInputNumber
+        ...TuiInputNumber, TuiInputDateTimeModule,
+        TuiSelectModule, TuiTextfieldControllerModule,
+        ...TuiDataList, ...TuiDataListWrapper,
+        TuiCheckbox
     ],
     providers: [
         // Ref: https://taiga-ui.dev/pipes/field-error#custom-messages
@@ -53,6 +62,10 @@ import {TuiAutoFocus} from '@taiga-ui/cdk';
                 of(`Minimum characters — ${requiredLength}`),
             maxlength: ({requiredLength}: {requiredLength: string}) =>
                 `Maximum characters — ${requiredLength}`,
+            min: ({requiredLength}: {requiredLength: string}) =>
+                of(`Minimum — ${requiredLength}`),
+            max: ({requiredLength}: {requiredLength: string}) =>
+                `Maximum — ${requiredLength}`,
             pattern: 'Only alphanumeric characters and underscores allowed'
         })
     ]

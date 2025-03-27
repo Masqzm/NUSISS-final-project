@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { RsvpService } from '../../services/rsvp.service';
+import { Observable } from 'rxjs';
+import { Rsvp } from '../../models';
 
 @Component({
   selector: 'app-list-rsvp-all',
@@ -6,6 +9,12 @@ import { Component } from '@angular/core';
   templateUrl: './list-rsvp-all.component.html',
   styleUrl: './list-rsvp-all.component.css'
 })
-export class ListRsvpAllComponent {
+export class ListRsvpAllComponent implements OnInit {
+  private rsvpSvc = inject(RsvpService)
+  
+  rsvps$!: Observable<Rsvp[]>
 
+  ngOnInit(): void {
+    this.rsvps$ = this.rsvpSvc.getRsvps()
+  }
 }

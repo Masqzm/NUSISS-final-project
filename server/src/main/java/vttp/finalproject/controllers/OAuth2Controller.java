@@ -39,11 +39,11 @@ public class OAuth2Controller {
     @GetMapping("/google")
     public void googleLoginRedirect(HttpServletResponse response) throws IOException {
         String GOOGLE_AUTH_URI = "https://accounts.google.com/o/oauth2/v2/auth?redirect_uri="
-                                                + OAuth2Service.googleOAuth2RedirectUri
+                                                + clientBaseUrl + OAuth2Service.googleOAuth2RedirectUri
                                                 + "&response_type=code&client_id="
                                                 + googleOAuth2ClientId 
                                                 + "&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline";
-                                                
+                         System.out.println(OAuth2Service.googleOAuth2RedirectUri);                       
         response.sendRedirect(GOOGLE_AUTH_URI);
     }
 

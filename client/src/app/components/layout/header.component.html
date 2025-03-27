@@ -15,7 +15,7 @@
         @if(user$ | async; as user)
         {
             @if(user.userId != '') {
-                <button class="btn btn-auth" tuiButton (click)="checkUser()" [routerLink]="['/myRsvp']" appearance="outline-grayscale" size="m">My Jios</button>
+                <!-- <button class="btn btn-auth" tuiButton (click)="checkUser()" [routerLink]="['/myRsvp']" appearance="outline-grayscale" size="m">My Jios</button> -->
                 <button class="btn btn-auth" tuiButton (click)="logout()" appearance="outline-grayscale" size="m">
                     <tui-icon icon="@tui.user-round" [style.color]="'white'"/>Logout
                 </button>

@@ -42,6 +42,9 @@ export interface Rsvp {
     posterName: string
     restaurantId: string
     timestamp: number
-    topcis: string[]
-    attendeeIds: string[]
+    capacity: number
+    rsvpingForPromo: boolean
+    topics: string[]
+    //attendeeIds: string[]
+    attendeesEmails: string[]
 }

@@ -6,3 +6,29 @@
     flex-direction: column;
     align-items: center;
 }
+
+.dt-input {
+    width: 300px;
+}
+
+.submit-btn {
+    text-align: center;
+}
+
+.btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-radio {
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}

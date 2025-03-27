@@ -32,8 +32,8 @@ public class StripeController {
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl(clientBaseUrl + "/#/about?donateSuccess&sessionId={CHECKOUT_SESSION_ID}")    // CHECKOUT_SESSION_ID will be replaced by Stripe
-                .setCancelUrl(clientBaseUrl + "/#/about?donateFail")
+                .setSuccessUrl(clientBaseUrl + "/#/about?donateSuccess=true&sessionId={CHECKOUT_SESSION_ID}")    // CHECKOUT_SESSION_ID will be replaced by Stripe
+                .setCancelUrl(clientBaseUrl + "/#/about?donateSuccess=false")
                 .addLineItem(SessionCreateParams.LineItem.builder()
                             .setQuantity(1L)
                             .setPriceData(SessionCreateParams.LineItem.PriceData.builder()

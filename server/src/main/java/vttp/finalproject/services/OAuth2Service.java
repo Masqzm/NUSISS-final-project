@@ -22,7 +22,7 @@ import vttp.finalproject.models.User;
 @Service
 public class OAuth2Service {
     @Value("${client.base.url}")
-    private static String clientBaseUrl;
+    private String clientBaseUrl;
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String googleOAuth2ClientId;
@@ -32,7 +32,7 @@ public class OAuth2Service {
     private String googleUserInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
     
     // For Google sign-in to redirect & send OAuth2 code to backend
-    public static String googleOAuth2RedirectUri = clientBaseUrl + "/api/oauth2/callback";  
+    public static String googleOAuth2RedirectUri = "/api/oauth2/callback";  
 
     @Autowired
     private UserService userSvc;
@@ -42,7 +42,7 @@ public class OAuth2Service {
         // Create form
         MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
         form.add("code", code);
-        form.add("redirect_uri", googleOAuth2RedirectUri);
+        form.add("redirect_uri", clientBaseUrl+googleOAuth2RedirectUri);
         form.add("client_id", googleOAuth2ClientId);
         form.add("client_secret", googleOAuth2ClientSecret);
         form.add("scope", "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile");

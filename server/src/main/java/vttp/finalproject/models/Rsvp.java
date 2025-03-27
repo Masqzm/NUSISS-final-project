@@ -19,69 +19,46 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Rsvp {
-    private String id;   
+    private String id;
+    private String posterId;
     private String posterName;
-    private String restaurantID;
-
-    @NotNull(message = "*Please select a date")
-    @Future(message = "*Please enter a valid future date")
-    private LocalDate date;
-
-    @NotNull(message = "*Please select a time")
-    private LocalTime time;
-
+    private String restaurantId;
+    private Long timestamp;
     private int capacity;
     private boolean rsvpingForPromo;
 
-    @Size(min = 1, message = "*Please select at least one topic")
-    private List<String> topics;
-    private List<String> attendeesNameList;   // inclusive of poster
+    private List<String> topics = new ArrayList<>();
+    private List<String> attendeesEmails = new ArrayList<>();
 
-    public Rsvp() {}
-    public Rsvp(String id, String posterName, String restaurantID, LocalDate date, LocalTime time,
-            int capacity, boolean rsvpingForPromo, List<String> topics, List<String> attendeesNameList) {
-        this.id = id;
-        this.posterName = posterName;
-        this.restaurantID = restaurantID;
-        this.date = date;
-        this.time = time;
-        this.capacity = capacity;
-        this.rsvpingForPromo = rsvpingForPromo;
-        this.topics = topics;
-        this.attendeesNameList = attendeesNameList;
-    }
-
-    public static Rsvp jsonTorsvp(String json) {
+    public static Rsvp jsonToRsvp(String json) {
         if (json == null)
             return null;
         
         JsonReader reader = Json.createReader(new StringReader(json));
         JsonObject j = reader.readObject();
 
-        List<String> topics = new ArrayList<>(); 
-        List<String> attendeesNameList = new ArrayList<>(); 
+        List<String> topicsList = new ArrayList<>(); 
+        List<String> attendeesEmailsList = new ArrayList<>(); 
 
         for(int i = 0; i < j.getJsonArray("topics").size(); i++) 
-            topics.add(j.getJsonArray("topics").getString(i));
+            topicsList.add(j.getJsonArray("topics").getString(i));
 
-        for(int i = 0; i < j.getJsonArray("attendees").size(); i++) 
-            attendeesNameList.add(j.getJsonArray("attendees").getString(i));
+        for(int i = 0; i < j.getJsonArray("attendeesEmails").size(); i++) 
+        attendeesEmailsList.add(j.getJsonArray("attendeesEmails").getString(i));
 
         //Restaurant rest = Restaurant.jsonToRestaurant(j.getString("restaurant"));
 
-        // Convert unix (long) back to date & time
-        Long unixTimestamp = j.getJsonNumber("unixTimestamp").longValue();
-        ZonedDateTime zonedDateTime = Instant.ofEpochSecond(unixTimestamp).atZone(ZoneOffset.UTC);
-        LocalDate date = zonedDateTime.toLocalDate();
-        LocalTime time = zonedDateTime.toLocalTime();
+        Rsvp rsvp = new Rsvp();
 
-        Rsvp rsvp = new Rsvp(j.getString("id"), 
-                        j.getString("posterName"),
-                        j.getString("restaurantID"), 
-                        date, time,
-                        j.getInt("capacity"),
-                        j.getBoolean("rsvpingForPromo"),
-                        topics, attendeesNameList);
+        rsvp.setId(j.getString("id"));
+        rsvp.setPosterId(j.getString("posterId"));
+        rsvp.setPosterName(j.getString("posterName"));
+        rsvp.setRestaurantId(j.getString("restaurantId"));
+        rsvp.setTimestamp(j.getJsonNumber("timestamp").longValue());
+        rsvp.setCapacity(j.getInt("capacity"));
+        rsvp.setRsvpingForPromo(j.getBoolean("rsvpingForPromo"));
+        rsvp.setAttendeesEmails(attendeesEmailsList);
+        rsvp.setTopics(topicsList);
 
         return rsvp;
     }
@@ -93,39 +70,40 @@ public class Rsvp {
         for(String topic : topics) 
             jArrBuilderTopics.add(topic);
         
-        for(String attendee : attendeesNameList) 
+        for(String attendee : attendeesEmails) 
             jArrBuilderAttendees.add(attendee);
 
         JsonObject job = Json.createObjectBuilder()
                         .add("id", id)
+                        .add("posterId", posterId)
                         .add("posterName", posterName)
-                        .add("restaurantID", restaurantID)
-                        .add("unixTimestamp", convertToUnixTimestamp(date, time))
+                        .add("restaurantID", restaurantId)
+                        .add("timestamp", timestamp)
                         .add("capacity", capacity)
                         .add("rsvpingForPromo", rsvpingForPromo)
                         .add("topics", jArrBuilderTopics.build())
-                        .add("attendees", jArrBuilderAttendees.build())
+                        .add("attendeesEmails", jArrBuilderAttendees.build())
                         .build();
 
         return job.toString();
     }
 
-    // Combine date & time to convert to long unix timestamp
-    public static long convertToUnixTimestamp(LocalDate date, LocalTime time) {
-        LocalDateTime dateTime = LocalDateTime.of(date, time);
-        
-        return dateTime.toEpochSecond(ZoneOffset.UTC);
-    }
-    
     @Override
     public String toString() {
         return toJson();
     }
+
     public String getId() {
         return id;
     }
     public void setId(String id) {
         this.id = id;
+    }
+    public String getPosterId() {
+        return posterId;
+    }
+    public void setPosterId(String posterId) {
+        this.posterId = posterId;
     }
     public String getPosterName() {
         return posterName;
@@ -133,23 +111,17 @@ public class Rsvp {
     public void setPosterName(String posterName) {
         this.posterName = posterName;
     }
-    public String getRestaurantID() {
-        return restaurantID;
+    public String getRestaurantId() {
+        return restaurantId;
     }
-    public void setRestaurantID(String restaurantID) {
-        this.restaurantID = restaurantID;
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
     }
-    public LocalDate getDate() {
-        return date;
+    public Long getTimestamp() {
+        return timestamp;
     }
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-    public LocalTime getTime() {
-        return time;
-    }
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
     public int getCapacity() {
         return capacity;
@@ -169,10 +141,10 @@ public class Rsvp {
     public void setTopics(List<String> topics) {
         this.topics = topics;
     }
-    public List<String> getAttendeesNameList() {
-        return attendeesNameList;
+    public List<String> getAttendeesEmails() {
+        return attendeesEmails;
     }
-    public void setAttendeesNameList(List<String> attendeesNameList) {
-        this.attendeesNameList = attendeesNameList;
+    public void setAttendeesEmails(List<String> attendeesEmails) {
+        this.attendeesEmails = attendeesEmails;
     }
 }

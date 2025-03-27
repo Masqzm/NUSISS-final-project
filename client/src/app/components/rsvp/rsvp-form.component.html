@@ -1,5 +1,56 @@
 <div tuiCardLarge tuiSurface="floating" class="card">
     <div class="card-wrapper">
-        <p>rsvp-form works!</p>
+        <h2>Open Jio</h2>
+        <form [formGroup]="form" tuiCardLarge tuiForm="m">
+            <tui-input-date-time class="dt-input" formControlName="dateTime">When?</tui-input-date-time>
+
+            <tui-select formControlName="capacity">Total Pax
+                <input
+                    placeholder="Total Pax"
+                    tuiTextfieldLegacy
+                />
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="paxChoices"
+                />
+            </tui-select>
+            <div class="btn-group">
+                <h2>Jioing for promo?</h2>
+                <input type="radio" class="btn-radio" id="btnradio1" 
+                    formControlName="rsvpPromo" [value]="false" checked>
+                <label class="btn" for="btnradio1">✗</label>
+
+                <input type="radio" class="btn-radio" id="btnradio2" 
+                    formControlName="rsvpPromo" [value]="true">
+                <label class="btn" for="btnradio2">✓</label>
+            </div>
+            <tui-textfield>
+                <label tuiLabel>Topics</label>
+                <input tuiTextfield formControlName="topics" placeholder="Enter topics separated by comma here"/>
+            </tui-textfield>
+            <!-- <div class="checkbox-grid"> -->
+                <!-- @for (topic of topics; track $index) {
+                    <label>
+                        <input
+                            size="s"
+                            tuiCheckbox
+                            type="checkbox"
+                            formControlName="topics"
+                        />
+                        {{ topic }}
+                    </label>
+                } -->
+                <!-- <div *ngFor="let topic of topics; let i = index">
+                    <label>
+                        <input type="checkbox" [formControl]="topicsArray.at(i)" />
+                        {{ topic }}
+                    </label>
+                </div> -->
+            <!-- </div> -->
+
+            <div class="submit-btn">
+                <button tuiButton type="submit" (click)="processForm()" [disabled]="form.invalid">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
